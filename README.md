@@ -44,6 +44,18 @@ PROYECTO CRUD/
 
 ## Ejecucion del Proyecto
 
+### Variables de entorno
+
+Antes de ejecutar, copia la plantilla de backend y completa tus valores locales:
+
+```bash
+copy backend\.env.example backend\.env
+```
+
+Si trabajas en Windows PowerShell, tambien puedes crear el archivo manualmente y editarlo con tus credenciales locales.
+
+El frontend no necesita archivo `.env`; usa `frontend/src/environments/environment.ts` y, en local, apunta automaticamente a `http://localhost:3001/api`.
+
 ### Backend
 
 ```bash

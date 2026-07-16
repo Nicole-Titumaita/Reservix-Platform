@@ -7,7 +7,7 @@ yarn-error.log*
 # Angular
 dist/
 .angular/
-coverage/
+
 
 # Environment files
 .env
