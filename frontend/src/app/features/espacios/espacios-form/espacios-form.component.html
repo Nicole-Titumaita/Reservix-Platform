@@ -1,0 +1,55 @@
+<section class="crud-page card-surface">
+  <div class="crud-header">
+    <div>
+      <p class="crud-eyebrow">Espacios</p>
+      <h3 class="crud-title">{{ isEditMode ? 'Editar espacio' : 'Nuevo espacio' }}</h3>
+      <p class="crud-description">Registra aulas, laboratorios o salas que pueden ser reservadas.</p>
+    </div>
+    <a class="btn-secondary" routerLink="/espacios">Volver</a>
+  </div>
+
+  <form class="form-grid" [formGroup]="form" (ngSubmit)="submit()">
+    <div class="form-field">
+      <label class="form-label">Estado <span class="form-required">*</span></label>
+      <select class="form-control" formControlName="estado_id">
+        <option value="">Seleccione un estado</option>
+        <option *ngFor="let estado of estados" [value]="estado.id">{{ estado.nombre }}</option>
+      </select>
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Codigo <span class="form-required">*</span></label>
+      <input class="form-control" placeholder="Ej: LAB-101" formControlName="codigo" />
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Nombre <span class="form-required">*</span></label>
+      <input class="form-control" placeholder="Ej: Laboratorio de redes" formControlName="nombre" />
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Tipo <span class="form-required">*</span></label>
+      <input class="form-control" placeholder="Ej: Aula, laboratorio, auditorio" formControlName="tipo" />
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Ubicacion</label>
+      <input class="form-control" placeholder="Ej: Bloque B, piso 2" formControlName="ubicacion" />
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Capacidad</label>
+      <input class="form-control" placeholder="Ej: 30" type="number" formControlName="capacidad" />
+    </div>
+
+    <div class="form-field form-field-full">
+      <label class="form-label">Descripcion</label>
+      <textarea class="form-control" rows="3" placeholder="Ej: Espacio con computadores, tablero y proyector." formControlName="descripcion"></textarea>
+    </div>
+
+    <div class="form-actions form-field-full">
+      <a class="btn-secondary" routerLink="/espacios">Cancelar</a>
+      <button class="btn-primary" [disabled]="form.invalid || loading">{{ loading ? 'Guardando...' : (isEditMode ? 'Guardar cambios' : 'Guardar espacio') }}</button>
+    </div>
+  </form>
+</section>

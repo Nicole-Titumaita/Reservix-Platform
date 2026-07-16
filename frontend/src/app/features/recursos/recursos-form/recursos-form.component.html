@@ -1,0 +1,72 @@
+<section class="crud-page card-surface">
+  <div class="crud-header">
+    <div>
+      <p class="crud-eyebrow">Recursos</p>
+      <h3 class="crud-title">{{ isEditMode ? 'Editar recurso tecnologico' : 'Nuevo recurso tecnologico' }}</h3>
+      <p class="crud-description">Registra equipos, proyectores, portatiles o kits que se pueden asignar a un espacio.</p>
+    </div>
+    <a class="btn-secondary gap-2" routerLink="/recursos">
+      <svg lucideArrowLeft class="h-4 w-4"></svg>
+      <span>Volver</span>
+    </a>
+  </div>
+
+  <form class="form-grid" [formGroup]="form" (ngSubmit)="submit()">
+    <div class="form-field">
+      <label class="form-label">Espacio asignado</label>
+      <select class="form-control" formControlName="espacio_id">
+        <option value="">Sin espacio fijo</option>
+        <option *ngFor="let espacio of espacios" [value]="espacio.id">{{ espacio.nombre }}</option>
+      </select>
+      <p class="form-help">Opcional si el recurso es movil.</p>
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Estado <span class="form-required">*</span></label>
+      <select class="form-control" formControlName="estado_id">
+        <option value="">Seleccione un estado</option>
+        <option *ngFor="let estado of estados" [value]="estado.id">{{ estado.nombre }}</option>
+      </select>
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Codigo <span class="form-required">*</span></label>
+      <input class="form-control" placeholder="Ej: PROY-001" formControlName="codigo" />
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Nombre <span class="form-required">*</span></label>
+      <input class="form-control" placeholder="Ej: Proyector Epson" formControlName="nombre" />
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Tipo <span class="form-required">*</span></label>
+      <input class="form-control" placeholder="Ej: Proyector, laptop, cable HDMI" formControlName="tipo" />
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Marca</label>
+      <input class="form-control" placeholder="Ej: Epson" formControlName="marca" />
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Modelo</label>
+      <input class="form-control" placeholder="Ej: X49" formControlName="modelo" />
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Serial</label>
+      <input class="form-control" placeholder="Ej: SN-123456" formControlName="serial" />
+    </div>
+
+    <div class="form-field form-field-full">
+      <label class="form-label">Descripcion</label>
+      <textarea class="form-control" rows="3" placeholder="Ej: Incluye control remoto y cable de energia." formControlName="descripcion"></textarea>
+    </div>
+
+    <div class="form-actions form-field-full">
+      <a class="btn-secondary" routerLink="/recursos">Cancelar</a>
+      <button class="btn-primary" [disabled]="form.invalid || loading">{{ loading ? 'Guardando...' : (isEditMode ? 'Guardar cambios' : 'Guardar recurso') }}</button>
+    </div>
+  </form>
+</section>

@@ -1,0 +1,103 @@
+<div class="app-shell min-h-screen bg-slate-950 text-slate-100">
+  <div class="mx-auto flex min-h-screen max-w-[1800px]">
+    <aside
+      class="sidebar hidden border-r border-white/10 bg-slate-950/95 py-4 transition-all duration-300 lg:flex"
+      [class.sidebar-expanded]="!sidebarCollapsed"
+      [class.sidebar-collapsed]="sidebarCollapsed"
+    >
+      <div class="sidebar-inner flex h-full min-h-0 flex-col">
+        <div class="sidebar-top mb-4 flex items-center gap-3 px-3">
+          <div class="min-w-0 flex-1" [class.hidden]="sidebarCollapsed">
+            <p class="text-xs uppercase tracking-[0.35em] text-sky-300/70">Sistema Academico</p>
+            <h1 class="mt-2 text-base font-semibold leading-tight">Reservas de Espacios y Recursos</h1>
+            <p class="mt-2 text-xs text-slate-400">Angular, Express y MySQL.</p>
+          </div>
+
+          <button
+            type="button"
+            class="sidebar-toggle btn-secondary flex h-9 w-9 shrink-0 items-center justify-center p-0"
+            (click)="toggleSidebar()"
+            [attr.aria-label]="sidebarCollapsed ? 'Expandir sidebar' : 'Contraer sidebar'"
+            [title]="sidebarCollapsed ? 'Expandir sidebar' : 'Contraer sidebar'"
+          >
+            <span class="text-lg leading-none" aria-hidden="true">{{ sidebarCollapsed ? '>' : '<' }}</span>
+          </button>
+        </div>
+
+        <nav class="sidebar-nav flex min-h-0 flex-1 flex-col gap-1.5 overflow-y-auto px-3 text-sm">
+          <a
+            *ngFor="let item of visibleMenu"
+            [routerLink]="item.path"
+            routerLinkActive="bg-white/10 text-white"
+            class="menu-item flex items-center rounded-xl py-2.5 text-slate-300 transition hover:bg-white/5 hover:text-white"
+            [class.menu-item-expanded]="!sidebarCollapsed"
+            [class.menu-item-collapsed]="sidebarCollapsed"
+          >
+            <span class="menu-icon flex h-5 w-5 shrink-0 items-center justify-center">
+              <ng-container [ngSwitch]="item.label">
+                <svg *ngSwitchCase="'Dashboard'" lucideLayoutDashboard class="h-4 w-4"></svg>
+                <svg *ngSwitchCase="'Usuarios'" lucideUsers class="h-4 w-4"></svg>
+                <svg *ngSwitchCase="'Roles'" lucideShield class="h-4 w-4"></svg>
+                <svg *ngSwitchCase="'Espacios'" lucideLandmark class="h-4 w-4"></svg>
+                <svg *ngSwitchCase="'Recursos'" lucideLaptopMinimal class="h-4 w-4"></svg>
+                <svg *ngSwitchCase="'Horarios'" lucideClock3 class="h-4 w-4"></svg>
+                <svg *ngSwitchCase="'Estados'" lucideCircleDot class="h-4 w-4"></svg>
+                <svg *ngSwitchCase="'Reservas'" lucideCalendarRange class="h-4 w-4"></svg>
+                <svg *ngSwitchCase="'Mis reservas'" lucideCalendarRange class="h-4 w-4"></svg>
+                <svg *ngSwitchCase="'Disponibilidad'" lucideClock3 class="h-4 w-4"></svg>
+                <svg *ngSwitchCase="'Mi historial'" lucideHistory class="h-4 w-4"></svg>
+                <svg *ngSwitchCase="'Historial'" lucideHistory class="h-4 w-4"></svg>
+              </ng-container>
+            </span>
+            <span class="menu-label" [class.hidden]="sidebarCollapsed">{{ item.label }}</span>
+          </a>
+        </nav>
+
+        <div class="mt-3 px-3">
+          <div class="session-card rounded-xl border border-white/10 bg-white/5 p-3">
+            <div [class.hidden]="sidebarCollapsed">
+              <p class="text-sm font-medium text-white">Sesion activa</p>
+              <p class="mt-1 text-xs text-slate-400">JWT guardado en localStorage</p>
+            </div>
+
+            <button
+              class="session-btn btn-secondary mt-3 flex items-center justify-center gap-2"
+              [class.session-btn-expanded]="!sidebarCollapsed"
+              [class.session-btn-collapsed]="sidebarCollapsed"
+              (click)="logout()"
+              [attr.title]="sidebarCollapsed ? 'Cerrar sesion' : null"
+            >
+              <svg lucideLogOut class="h-4 w-4"></svg>
+              <span [class.hidden]="sidebarCollapsed">Cerrar sesion</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="flex min-w-0 flex-1 flex-col">
+      <header class="border-b border-white/10 bg-slate-950/80 px-4 py-2.5 backdrop-blur lg:px-6">
+        <div class="flex items-center justify-between gap-4">
+          <div>
+            <p class="text-[10px] uppercase tracking-[0.35em] text-sky-300/70">Panel general</p>
+            <h2 class="text-base font-semibold text-white lg:text-lg">Administracion centralizada</h2>
+          </div>
+          <div class="flex items-center gap-3">
+            <a class="btn-secondary hidden items-center gap-2 sm:inline-flex" [routerLink]="reservaCreatePath">
+              <svg lucidePlus class="h-4 w-4"></svg>
+              <span>Nueva reserva</span>
+            </a>
+            <a class="btn-primary hidden items-center gap-2 sm:inline-flex" routerLink="/dashboard">
+              <svg lucideHouse class="h-4 w-4"></svg>
+              <span>Inicio</span>
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <main class="flex-1 bg-slate-950 px-4 py-4 text-slate-900 lg:px-6">
+        <router-outlet />
+      </main>
+    </div>
+  </div>
+</div>

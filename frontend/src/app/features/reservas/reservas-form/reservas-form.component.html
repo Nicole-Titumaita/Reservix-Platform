@@ -1,0 +1,79 @@
+<section class="crud-page card-surface">
+  <div class="crud-header">
+    <div>
+      <p class="crud-eyebrow">Reservas</p>
+      <h3 class="crud-title">{{ isEditMode ? 'Editar reserva' : (isAdmin ? 'Nueva reserva' : 'Nueva solicitud') }}</h3>
+      <p class="crud-description">{{ isAdmin ? 'Asocia usuario, espacio, horario y rango de fechas para registrar una reserva.' : 'Selecciona espacio, horario y fechas para solicitar una reserva.' }}</p>
+    </div>
+    <a class="btn-secondary" [routerLink]="isAdmin ? '/reservas' : '/mis-reservas'">Volver</a>
+  </div>
+
+  <form class="form-grid" [formGroup]="form" (ngSubmit)="submit()">
+    <div class="form-field">
+      <label class="form-label">Usuario <span class="form-required">*</span></label>
+      <select class="form-control" formControlName="usuario_id">
+        <option value="">Seleccione un usuario</option>
+        <option *ngFor="let user of usuarios" [value]="user.id">{{ user.nombre }} {{ user.apellido }}</option>
+      </select>
+      <p class="form-help">Persona que solicita o recibe la reserva.</p>
+    </div>
+
+    <div *ngIf="isAdmin" class="form-field">
+      <label class="form-label">Espacio <span class="form-required">*</span></label>
+      <select class="form-control" formControlName="espacio_id">
+        <option value="">Seleccione un espacio</option>
+        <option *ngFor="let espacio of espacios" [value]="espacio.id">{{ espacio.nombre }}</option>
+      </select>
+    </div>
+
+    <div *ngIf="isAdmin" class="form-field">
+      <label class="form-label">Horario <span class="form-required">*</span></label>
+      <select class="form-control" formControlName="horario_id">
+        <option value="">Seleccione un horario</option>
+        <option *ngFor="let horario of horarios" [value]="horario.id">{{ horario.nombre }}</option>
+      </select>
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Estado <span class="form-required">*</span></label>
+      <select class="form-control" formControlName="estado_id">
+        <option value="">Seleccione un estado</option>
+        <option *ngFor="let estado of estados" [value]="estado.id">{{ estado.nombre }}</option>
+      </select>
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Fecha de solicitud <span class="form-required">*</span></label>
+      <input class="form-control" type="date" formControlName="fecha_reserva" />
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Inicio de la reserva <span class="form-required">*</span></label>
+      <input class="form-control" type="datetime-local" formControlName="fecha_inicio" />
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Fin de la reserva <span class="form-required">*</span></label>
+      <input class="form-control" type="datetime-local" formControlName="fecha_fin" />
+    </div>
+
+    <div class="form-field form-field-full">
+      <label class="form-label">Motivo <span class="form-required">*</span></label>
+      <input class="form-control" placeholder="Ej: Clase de programacion, sustentacion o capacitacion" formControlName="motivo" />
+    </div>
+
+    <div class="form-field form-field-full">
+      <label class="form-label">Observaciones</label>
+      <textarea class="form-control" rows="3" placeholder="Ej: Se requiere proyector y sonido." formControlName="observaciones"></textarea>
+    </div>
+
+    <div class="form-actions form-field-full">
+      <a class="btn-secondary" [routerLink]="isAdmin ? '/reservas' : '/mis-reservas'">Cancelar</a>
+      <button class="btn-primary" [disabled]="form.invalid || loading">{{ loading ? 'Guardando...' : (isEditMode ? 'Guardar cambios' : (isAdmin ? 'Guardar reserva' : 'Enviar solicitud')) }}</button>
+    </div>
+  </form>
+
+  <div *ngIf="errorMessage" class="mt-5 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+    {{ errorMessage }}
+  </div>
+</section>

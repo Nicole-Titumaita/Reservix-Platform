@@ -1,0 +1,45 @@
+<section class="crud-page card-surface">
+  <div class="crud-header">
+    <div>
+      <p class="crud-eyebrow">Catalogo</p>
+      <h3 class="crud-title">{{ isEditMode ? 'Editar estado' : 'Nuevo estado' }}</h3>
+      <p class="crud-description">Crea estados reutilizables para usuarios, recursos, espacios o reservas.</p>
+    </div>
+    <a class="btn-secondary" routerLink="/estados">Volver</a>
+  </div>
+
+  <form class="form-grid" [formGroup]="form" (ngSubmit)="submit()">
+    <div class="form-field">
+      <label class="form-label">Categoria <span class="form-required">*</span></label>
+      <select class="form-control" formControlName="categoria">
+        <option value="">Seleccione una categoria</option>
+        <option *ngFor="let categoria of categorias" [value]="categoria">{{ categoria }}</option>
+      </select>
+      <p class="form-help">Indica en que modulo se usara este estado.</p>
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Nombre <span class="form-required">*</span></label>
+      <input class="form-control" placeholder="Ej: DISPONIBLE" formControlName="nombre" />
+      <p class="form-help">Debe ser claro para reconocerlo en listas.</p>
+    </div>
+
+    <div class="form-field form-field-full">
+      <label class="form-label">Descripcion</label>
+      <textarea class="form-control" rows="3" placeholder="Ej: Recurso listo para ser reservado." formControlName="descripcion"></textarea>
+    </div>
+
+    <label class="form-check form-field-full">
+      <input class="mt-1" type="checkbox" formControlName="activo" />
+      <span>
+        <span class="block text-sm font-semibold text-slate-700">Estado activo</span>
+        <span class="form-help">Si esta desactivado, no deberia usarse en nuevos registros.</span>
+      </span>
+    </label>
+
+    <div class="form-actions form-field-full">
+      <a class="btn-secondary" routerLink="/estados">Cancelar</a>
+      <button class="btn-primary" [disabled]="form.invalid || loading">{{ loading ? 'Guardando...' : (isEditMode ? 'Guardar cambios' : 'Guardar estado') }}</button>
+    </div>
+  </form>
+</section>

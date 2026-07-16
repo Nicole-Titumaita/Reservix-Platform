@@ -1,0 +1,19 @@
+.dashboard-page {
+  font-size: 0.8125rem;
+}
+
+.dashboard-page .card-surface {
+  min-height: auto;
+}
+
+.dashboard-page h3,
+.dashboard-page h4,
+.dashboard-page p {
+  line-height: 1.35;
+}
+
+@media (max-width: 640px) {
+  .dashboard-page {
+    font-size: 0.78rem;
+  }
+}

@@ -1,0 +1,66 @@
+<section class="crud-page card-surface">
+  <div class="crud-header">
+    <div>
+      <p class="crud-eyebrow">Usuarios</p>
+      <h3 class="crud-title">{{ isEditMode ? 'Editar usuario' : 'Nuevo usuario' }}</h3>
+      <p class="crud-description">Crea una cuenta interna y asigna el rol que tendra dentro del sistema.</p>
+    </div>
+    <a class="btn-secondary" routerLink="/usuarios">Volver</a>
+  </div>
+
+  <form class="form-grid" [formGroup]="form" (ngSubmit)="submit()">
+    <div class="form-field">
+      <label class="form-label">Rol <span class="form-required">*</span></label>
+      <select class="form-control" formControlName="rol_id">
+        <option value="">Seleccione un rol</option>
+        <option *ngFor="let rol of roles" [value]="rol.id">{{ rol.nombre }}</option>
+      </select>
+      <p class="form-help">Define si sera estudiante, docente o administrador.</p>
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Estado <span class="form-required">*</span></label>
+      <select class="form-control" formControlName="estado_id">
+        <option value="">Seleccione un estado</option>
+        <option *ngFor="let estado of estados" [value]="estado.id">{{ estado.nombre }}</option>
+      </select>
+      <p class="form-help">Normalmente inicia como activo o pendiente.</p>
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Nombre <span class="form-required">*</span></label>
+      <input class="form-control" placeholder="Ej: Maria" formControlName="nombre" />
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Apellido <span class="form-required">*</span></label>
+      <input class="form-control" placeholder="Ej: Gomez" formControlName="apellido" />
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Correo institucional <span class="form-required">*</span></label>
+      <input class="form-control" placeholder="Ej: maria@institucion.edu" formControlName="email" />
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Contrasena <span *ngIf="!isEditMode" class="form-required">*</span></label>
+      <input class="form-control" [placeholder]="isEditMode ? 'No se cambia desde esta pantalla' : 'Minimo 8 caracteres'" type="password" formControlName="password" />
+      <p *ngIf="isEditMode" class="form-help">Para cambiar la contrasena conviene crear una accion separada.</p>
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Telefono</label>
+      <input class="form-control" placeholder="Ej: 3001234567" formControlName="telefono" />
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Codigo institucional</label>
+      <input class="form-control" placeholder="Ej: EST-2026-001" formControlName="codigo_institucional" />
+    </div>
+
+    <div class="form-actions form-field-full">
+      <a class="btn-secondary" routerLink="/usuarios">Cancelar</a>
+      <button class="btn-primary" [disabled]="form.invalid || loading">{{ loading ? 'Guardando...' : (isEditMode ? 'Guardar cambios' : 'Guardar usuario') }}</button>
+    </div>
+  </form>
+</section>

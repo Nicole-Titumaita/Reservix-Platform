@@ -1,0 +1,28 @@
+<section class="crud-page card-surface">
+  <div class="crud-header">
+    <div>
+      <p class="crud-eyebrow">Roles</p>
+      <h3 class="crud-title">{{ isEditMode ? 'Editar rol' : 'Nuevo rol' }}</h3>
+      <p class="crud-description">Define un perfil de acceso para controlar que puede hacer cada tipo de usuario.</p>
+    </div>
+    <a class="btn-secondary" routerLink="/roles">Volver</a>
+  </div>
+
+  <form class="form-grid" [formGroup]="form" (ngSubmit)="submit()">
+    <div class="form-field">
+      <label class="form-label">Nombre del rol <span class="form-required">*</span></label>
+      <input class="form-control" placeholder="Ej: DOCENTE" formControlName="nombre" />
+      <p class="form-help">Usa un nombre corto y facil de reconocer.</p>
+    </div>
+
+    <div class="form-field form-field-full">
+      <label class="form-label">Descripcion</label>
+      <textarea class="form-control" rows="3" placeholder="Ej: Puede crear solicitudes de reserva." formControlName="descripcion"></textarea>
+    </div>
+
+    <div class="form-actions form-field-full">
+      <a class="btn-secondary" routerLink="/roles">Cancelar</a>
+      <button class="btn-primary" [disabled]="form.invalid || loading">{{ loading ? 'Guardando...' : (isEditMode ? 'Guardar cambios' : 'Guardar rol') }}</button>
+    </div>
+  </form>
+</section>

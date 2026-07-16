@@ -1,0 +1,16 @@
+.admin-card {
+  border-color: rgba(190, 18, 60, 0.18);
+}
+
+.admin-card .auth-eyebrow,
+.admin-card .auth-links a {
+  color: #be123c;
+}
+
+.admin-card .auth-submit {
+  background: #be123c;
+}
+
+.admin-card .auth-submit:hover:not(:disabled) {
+  background: #9f1239;
+}

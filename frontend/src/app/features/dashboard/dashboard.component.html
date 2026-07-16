@@ -1,0 +1,60 @@
+<section class="dashboard-page space-y-3">
+  <div class="card-surface px-4 py-3 lg:px-4 lg:py-4">
+    <p class="text-[10px] font-semibold uppercase tracking-[0.35em] text-blue-600">Dashboard</p>
+    <h3 class="mt-1.5 text-base font-bold text-slate-900 lg:text-lg">Bienvenido al sistema de reservas</h3>
+    <p class="mt-1.5 max-w-3xl text-[12px] leading-5 text-slate-600">
+      Desde aquí administras usuarios, roles, espacios, recursos, horarios, estados, reservas e historial.
+    </p>
+  </div>
+
+  <div class="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+    <div class="card-surface p-3" *ngFor="let card of cards">
+      <div class="flex items-start justify-between gap-3">
+        <div>
+          <p class="text-[12px] font-medium text-slate-500">{{ card.title }}</p>
+          <p class="mt-1.5 text-base font-semibold text-slate-900 lg:text-lg">{{ card.value }}</p>
+        </div>
+        <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
+          <ng-container [ngSwitch]="card.icon">
+            <svg *ngSwitchCase="'users'" lucideUsers class="h-3.5 w-3.5"></svg>
+            <svg *ngSwitchCase="'reservas'" lucideCalendarRange class="h-3.5 w-3.5"></svg>
+            <svg *ngSwitchCase="'espacios'" lucideLandmark class="h-3.5 w-3.5"></svg>
+            <svg *ngSwitchCase="'recursos'" lucideLaptopMinimal class="h-3.5 w-3.5"></svg>
+          </ng-container>
+        </div>
+      </div>
+      <p class="mt-2 text-[12px] leading-5 text-slate-500">{{ card.description }}</p>
+    </div>
+  </div>
+
+  <div class="grid gap-3 xl:grid-cols-3">
+    <div class="card-surface p-4 xl:col-span-2">
+      <div class="flex items-center justify-between gap-3">
+        <h4 class="text-sm font-semibold text-slate-900">Accesos rápidos</h4>
+        <svg lucideArrowRight class="h-4 w-4 text-slate-400"></svg>
+      </div>
+      <div class="mt-3 grid gap-3 md:grid-cols-2">
+        <a
+          *ngFor="let link of visibleLinks"
+        [routerLink]="link.path"
+          class="group rounded-xl border border-slate-200 bg-white px-3 py-2.5 transition hover:-translate-y-0.5 hover:border-blue-300 hover:bg-blue-50"
+        >
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <p class="text-[12px] font-medium text-slate-500">{{ link.label }}</p>
+              <p class="mt-1 text-[13px] font-semibold text-slate-900">{{ link.action }}</p>
+            </div>
+            <svg lucideArrowRight class="h-4 w-4 text-slate-400 transition group-hover:translate-x-0.5 group-hover:text-blue-600"></svg>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="card-surface p-4">
+      <h4 class="text-sm font-semibold text-slate-900">Flujo recomendado</h4>
+      <ol class="mt-3 space-y-2 text-[12px] text-slate-600">
+        <li class="rounded-lg bg-slate-50 px-3 py-2" *ngFor="let step of steps">{{ step }}</li>
+      </ol>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,105 @@
+<section class="auth-card register-card card-surface">
+  <div class="auth-heading">
+    <p class="auth-eyebrow">Registro publico</p>
+    <h2>Crear cuenta</h2>
+    <p>Solo estudiantes y docentes pueden registrarse desde este formulario.</p>
+  </div>
+
+  <div *ngIf="generalError" class="auth-alert">
+    {{ generalError }}
+  </div>
+
+  <form class="register-form" [formGroup]="form" (ngSubmit)="submit()">
+    <div class="auth-field">
+      <label for="register-name">Nombres <span>*</span></label>
+      <input id="register-name" type="text" formControlName="nombre" placeholder="Ej: Maria" [class.invalid]="hasError('nombre')" />
+      <p *ngIf="hasError('nombre')" class="field-error">{{ fieldMessage('nombre') }}</p>
+    </div>
+
+    <div class="auth-field">
+      <label for="register-lastname">Apellidos <span>*</span></label>
+      <input id="register-lastname" type="text" formControlName="apellido" placeholder="Ej: Gomez" [class.invalid]="hasError('apellido')" />
+      <p *ngIf="hasError('apellido')" class="field-error">{{ fieldMessage('apellido') }}</p>
+    </div>
+
+    <div class="auth-field">
+      <label for="register-cedula">Cedula ecuatoriana <span>*</span></label>
+      <input id="register-cedula" type="text" formControlName="cedula" maxlength="10" placeholder="Ej: 1710034065" [class.invalid]="hasError('cedula')" />
+      <p *ngIf="hasError('cedula')" class="field-error">{{ fieldMessage('cedula') }}</p>
+    </div>
+
+    <div class="auth-field wide">
+      <label for="register-email">Correo electronico <span>*</span></label>
+      <input id="register-email" type="email" formControlName="email" placeholder="usuario@gmail.com" [class.invalid]="hasError('email')" />
+      <p *ngIf="hasError('email')" class="field-error">
+        {{ fieldMessage('email') }}
+      </p>
+    </div>
+
+    <div class="auth-field code-field wide">
+      <div class="code-field__header">
+        <label for="register-code">Codigo institucional <span>*</span></label>
+        <button type="button" class="code-field__button" (click)="requestInstitutionalCode()" [disabled]="requestingCode">
+          {{ requestingCode ? 'Enviando...' : 'Solicitar codigo' }}
+        </button>
+      </div>
+      <input id="register-code" type="text" formControlName="codigo_institucional" placeholder="Ej: EST-2026-000001" [class.invalid]="hasError('codigo_institucional')" />
+      <p *ngIf="hasError('codigo_institucional')" class="field-error">{{ fieldMessage('codigo_institucional') }}</p>
+      <p *ngIf="codeMessage" class="field-success">{{ codeMessage }}</p>
+    </div>
+
+    <div class="auth-field password-field">
+      <label for="register-password">Contrasena <span>*</span></label>
+      <div class="password-input-wrap">
+        <input
+          id="register-password"
+          type="password"
+          formControlName="password"
+          placeholder="Seguro123*"
+          [class.invalid]="hasError('password')"
+          (focus)="passwordFocused = true"
+          (blur)="passwordFocused = false"
+        />
+      </div>
+      <p *ngIf="hasError('password')" class="field-error">
+        {{ fieldMessage('password') }}
+      </p>
+
+      <div *ngIf="showPasswordRules()" class="password-rules" aria-live="polite">
+        <p>Requisitos de seguridad</p>
+        <span [class.ok]="passwordRule('length')">8 caracteres</span>
+        <span [class.ok]="passwordRule('upper')">Mayuscula</span>
+        <span [class.ok]="passwordRule('lower')">Minuscula</span>
+        <span [class.ok]="passwordRule('number')">Numero</span>
+        <span [class.ok]="passwordRule('special')">Especial</span>
+      </div>
+    </div>
+
+    <div class="auth-field">
+      <label for="register-confirm-password">Confirmar contrasena <span>*</span></label>
+      <input id="register-confirm-password" type="password" formControlName="confirm_password" placeholder="Repite tu contrasena" [class.invalid]="confirmPasswordError()" />
+      <p *ngIf="confirmPasswordError()" class="field-error">{{ confirmPasswordMessage() }}</p>
+    </div>
+
+    <div class="auth-field">
+      <label for="register-phone">Telefono</label>
+      <input id="register-phone" type="text" formControlName="telefono" placeholder="Opcional" />
+    </div>
+
+    <div class="auth-field wide">
+      <label for="register-role">Tipo de usuario <span>*</span></label>
+      <select id="register-role" formControlName="rol_id">
+        <option value="">Selecciona un rol</option>
+        <option *ngFor="let rol of roles" [value]="rol.id">{{ rol.nombre }}</option>
+      </select>
+    </div>
+
+    <button class="auth-submit wide" [disabled]="form.invalid || loading">
+      {{ loading ? 'Registrando...' : 'Crear cuenta' }}
+    </button>
+  </form>
+
+  <div class="auth-links single">
+    <a routerLink="/auth/login">Volver al login</a>
+  </div>
+</section>

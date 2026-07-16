@@ -1,0 +1,14 @@
+<div *ngIf="notifications.message()" class="notification-backdrop" role="presentation">
+  <section class="notification-card" role="alertdialog" aria-modal="true" aria-labelledby="notification-title">
+    <div class="notification-icon">
+      <span>!</span>
+    </div>
+
+    <div class="notification-content">
+      <p id="notification-title" class="notification-title">{{ notifications.title() }}</p>
+      <p class="notification-message">{{ notifications.message() }}</p>
+    </div>
+
+    <button type="button" class="notification-button" (click)="notifications.clear()">Aceptar</button>
+  </section>
+</div>

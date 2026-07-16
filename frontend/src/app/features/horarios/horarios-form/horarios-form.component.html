@@ -1,0 +1,41 @@
+<section class="crud-page card-surface">
+  <div class="crud-header">
+    <div>
+      <p class="crud-eyebrow">Horarios</p>
+      <h3 class="crud-title">{{ isEditMode ? 'Editar horario' : 'Nuevo horario' }}</h3>
+      <p class="crud-description">Define bloques de disponibilidad que despues se usaran en las reservas.</p>
+    </div>
+    <a class="btn-secondary" routerLink="/horarios">Volver</a>
+  </div>
+
+  <form class="form-grid" [formGroup]="form" (ngSubmit)="submit()">
+    <div class="form-field form-field-full">
+      <label class="form-label">Nombre <span class="form-required">*</span></label>
+      <input class="form-control" placeholder="Ej: Lunes manana" formControlName="nombre" />
+      <p class="form-help">Usa un nombre que identifique facilmente el bloque.</p>
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Dia de la semana <span class="form-required">*</span></label>
+      <select class="form-control" formControlName="dia_semana">
+        <option value="">Seleccione un dia</option>
+        <option *ngFor="let dia of dias" [value]="dia">{{ dia }}</option>
+      </select>
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Hora de inicio <span class="form-required">*</span></label>
+      <input class="form-control" type="time" formControlName="hora_inicio" />
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Hora de fin <span class="form-required">*</span></label>
+      <input class="form-control" type="time" formControlName="hora_fin" />
+    </div>
+
+    <div class="form-actions form-field-full">
+      <a class="btn-secondary" routerLink="/horarios">Cancelar</a>
+      <button class="btn-primary" [disabled]="form.invalid || loading">{{ loading ? 'Guardando...' : (isEditMode ? 'Guardar cambios' : 'Guardar horario') }}</button>
+    </div>
+  </form>
+</section>

@@ -1,0 +1,61 @@
+<section class="crud-page card-surface">
+  <div class="crud-header">
+    <div>
+      <p class="crud-eyebrow">Disponibilidad</p>
+      <h3 class="crud-title">Consultar espacio disponible</h3>
+      <p class="crud-description">Valida si existe choque de horario antes de crear una solicitud de reserva.</p>
+    </div>
+    <a class="btn-secondary" [routerLink]="backPath">Volver</a>
+  </div>
+
+  <form class="form-grid" [formGroup]="form" (ngSubmit)="consultar()">
+    <div class="form-field">
+      <label class="form-label">Espacio <span class="form-required">*</span></label>
+      <select class="form-control" formControlName="espacio_id">
+        <option value="">Seleccione un espacio</option>
+        <option *ngFor="let espacio of espacios" [value]="espacio.id">{{ espacio.nombre }} - {{ espacio.codigo }}</option>
+      </select>
+      <p class="form-help">Aula, laboratorio o sala que deseas revisar.</p>
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Inicio <span class="form-required">*</span></label>
+      <input class="form-control" type="datetime-local" formControlName="fecha_inicio" />
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Fin <span class="form-required">*</span></label>
+      <input class="form-control" type="datetime-local" formControlName="fecha_fin" />
+    </div>
+
+    <div class="form-actions form-field-full">
+      <button class="btn-primary" [disabled]="form.invalid || loading">
+        {{ loading ? 'Consultando...' : 'Consultar disponibilidad' }}
+      </button>
+    </div>
+  </form>
+
+  <div *ngIf="errorMessage" class="mt-5 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+    {{ errorMessage }}
+  </div>
+
+  <div
+    *ngIf="result"
+    class="mt-5 rounded-xl border p-5"
+    [class.border-emerald-200]="result.disponible"
+    [class.bg-emerald-50]="result.disponible"
+    [class.border-amber-200]="!result.disponible"
+    [class.bg-amber-50]="!result.disponible"
+  >
+    <p class="text-xs font-semibold uppercase tracking-[0.25em]" [class.text-emerald-700]="result.disponible" [class.text-amber-700]="!result.disponible">
+      {{ result.disponible ? 'Disponible' : 'No disponible' }}
+    </p>
+    <h4 class="mt-2 text-lg font-semibold text-slate-900">{{ result.mensaje }}</h4>
+    <p class="mt-2 text-sm text-slate-600">
+      Espacio consultado: {{ result.espacio?.nombre || 'Sin informacion' }}
+    </p>
+    <p *ngIf="result.conflicto" class="mt-2 text-sm text-amber-800">
+      Existe una reserva activa que se cruza con ese rango de tiempo.
+    </p>
+  </div>
+</section>

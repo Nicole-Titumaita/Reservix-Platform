@@ -1,0 +1,58 @@
+<section class="space-y-4">
+  <div class="flex flex-wrap items-center justify-between gap-3">
+    <div>
+      <p class="text-xs font-semibold uppercase tracking-[0.35em] text-blue-500">Infraestructura</p>
+      <h3 class="mt-1 text-2xl font-bold text-slate-900">Recursos</h3>
+      <p class="mt-2 max-w-2xl text-sm text-slate-600">Administra equipos y materiales sin sobrecargar la vista.</p>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <a class="btn-secondary hidden items-center gap-2 sm:inline-flex" routerLink="/espacios">
+        <svg lucideArrowLeft class="h-4 w-4"></svg>
+        <span>Espacios</span>
+      </a>
+      <a class="btn-primary items-center gap-2" routerLink="/recursos/nuevo">
+        <svg lucidePlus class="h-4 w-4"></svg>
+        <span>Nuevo recurso</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="card-surface overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-slate-200 text-sm">
+        <thead class="bg-slate-50 text-left text-xs uppercase tracking-[0.2em] text-slate-500">
+          <tr>
+            <th class="px-4 py-3 font-semibold">Código</th>
+            <th class="px-4 py-3 font-semibold">Nombre</th>
+            <th class="px-4 py-3 font-semibold">Tipo</th>
+            <th class="px-4 py-3 font-semibold">Espacio</th>
+            <th class="px-4 py-3 font-semibold">Estado</th>
+            <th class="px-4 py-3 font-semibold">Acciones</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100 bg-white">
+          <tr *ngFor="let item of items" class="align-middle">
+            <td class="px-4 py-3 text-slate-600">{{ item.codigo }}</td>
+            <td class="px-4 py-3 font-medium text-slate-900">{{ item.nombre }}</td>
+            <td class="px-4 py-3 text-slate-600">{{ item.tipo }}</td>
+            <td class="px-4 py-3 text-slate-600">{{ item.espacio_nombre || item.espacio_id || '-' }}</td>
+            <td class="px-4 py-3 text-slate-600">{{ item.estado_nombre || item.estado_id || '-' }}</td>
+            <td class="px-4 py-3">
+              <div class="flex flex-wrap gap-2">
+                <button class="btn-secondary inline-flex items-center gap-2 px-3 py-2 text-sm" (click)="edit(item.id)">
+                  <svg lucideSquarePen class="h-4 w-4"></svg>
+                  <span>Editar</span>
+                </button>
+                <button class="btn-secondary inline-flex items-center gap-2 px-3 py-2 text-sm" (click)="remove(item.id)">
+                  <svg lucideTrash2 class="h-4 w-4"></svg>
+                  <span>Eliminar</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

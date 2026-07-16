@@ -1,0 +1,92 @@
+<section class="auth-card card-surface">
+  <div class="auth-heading">
+    <p class="auth-eyebrow">Acceso general</p>
+    <h2>Iniciar sesion</h2>
+    <p>Entra con tu correo y contrasena para consultar disponibilidad y gestionar tus reservas.</p>
+  </div>
+
+  <div *ngIf="generalError" class="auth-alert">
+    {{ generalError }}
+  </div>
+
+  <form *ngIf="!otpStep" class="auth-form" [formGroup]="form" (ngSubmit)="submit()">
+    <div class="auth-field">
+      <label for="login-email">Correo <span>*</span></label>
+      <input
+        id="login-email"
+        type="email"
+        formControlName="email"
+        placeholder="usuario@gmail.com"
+        [class.invalid]="hasError('email')"
+      />
+      <p *ngIf="hasError('email')" class="field-error">
+        Ingresa un correo valido. Tambien se permite demo.local para pruebas.
+      </p>
+    </div>
+
+    <div class="auth-field">
+      <label for="login-password">Contrasena <span>*</span></label>
+      <input
+        id="login-password"
+        type="password"
+        formControlName="password"
+        placeholder="Minimo 8 caracteres"
+        [class.invalid]="hasError('password')"
+      />
+      <p *ngIf="hasError('password')" class="field-error">
+        La contrasena debe tener al menos 8 caracteres.
+      </p>
+    </div>
+
+    <button class="auth-submit" [disabled]="form.invalid || loading">
+      {{ loading ? 'Validando...' : 'Continuar' }}
+    </button>
+  </form>
+
+  <form *ngIf="otpStep" class="auth-form otp-form" [formGroup]="otpForm" (ngSubmit)="verifyOtp()">
+    <div class="otp-box">
+      <p class="otp-title">Verificacion en dos pasos</p>
+      <span>
+        Enviamos un codigo de 6 digitos. Si usas una cuenta demo, revisa la consola del backend.
+      </span>
+    </div>
+
+    <div class="auth-field">
+      <label for="login-otp">Codigo OTP <span>*</span></label>
+      <input
+        id="login-otp"
+        class="otp-input"
+        type="text"
+        formControlName="code"
+        maxlength="6"
+        placeholder="000000"
+        [class.invalid]="hasOtpError()"
+      />
+      <p *ngIf="hasOtpError()" class="field-error">Ingresa un codigo de 6 digitos.</p>
+    </div>
+
+    <button class="auth-submit" [disabled]="otpForm.invalid || loading">
+      {{ loading ? 'Verificando...' : 'Verificar codigo' }}
+    </button>
+
+    <div class="auth-links single">
+      <button type="button" class="link-button" (click)="resendOtp()" [disabled]="resending">
+        {{ resending ? 'Reenviando...' : 'Reenviar codigo' }}
+      </button>
+      <button type="button" class="link-button" (click)="backToCredentials()">Cambiar credenciales</button>
+    </div>
+  </form>
+
+  <div *ngIf="!otpStep" class="auth-links">
+    <a routerLink="/auth/register">Crear cuenta</a>
+    <a routerLink="/auth/forgot-password">Olvide mi contraseña</a>
+  </div>
+
+  <div *ngIf="!otpStep" class="auth-note">
+    <div>
+      <p>Acceso administrativo</p>
+      <span>Si eres administrador, usa el acceso exclusivo para ese rol.</span>
+    </div>
+    <a routerLink="/auth/admin-login">Ir al login admin</a>
+  </div>
+</section>

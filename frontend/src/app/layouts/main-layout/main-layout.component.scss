@@ -1,0 +1,114 @@
+:host {
+  display: block;
+}
+
+.app-shell {
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
+
+.sidebar {
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.sidebar-expanded {
+  width: 17rem;
+}
+
+.sidebar-collapsed {
+  width: 4.5rem;
+}
+
+.sidebar-inner {
+  min-height: calc(100vh - 2rem);
+}
+
+.sidebar-top {
+  min-height: 3.25rem;
+}
+
+.sidebar-collapsed .sidebar-top {
+  justify-content: center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.sidebar-nav {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.45) transparent;
+}
+
+.sidebar-nav::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sidebar-nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.45);
+  border-radius: 999px;
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.7);
+}
+
+.menu-item-expanded {
+  width: 100%;
+  justify-content: flex-start;
+  padding-left: 0.875rem;
+  padding-right: 0.875rem;
+}
+
+.menu-item-collapsed {
+  width: 2.75rem;
+  justify-content: center;
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.menu-label {
+  white-space: nowrap;
+}
+
+.sidebar :is(h1, h2, h3, h4, p, span, a, button) {
+  line-height: 1.35;
+}
+
+.session-card {
+  transition: all 0.3s ease;
+}
+
+.sidebar-collapsed .session-card {
+  border-color: transparent;
+  background: transparent;
+  padding: 0;
+}
+
+.session-btn {
+  transition: all 0.3s ease;
+}
+
+.session-btn-expanded {
+  width: 100%;
+}
+
+.session-btn-collapsed {
+  width: 2.75rem;
+  min-width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 1023px) {
+  .app-shell {
+    font-size: 0.8125rem;
+  }
+}

@@ -1,0 +1,47 @@
+<section class="space-y-5">
+  <div class="flex items-center justify-between gap-4">
+    <div>
+      <p class="text-xs uppercase tracking-[0.35em] text-blue-400">{{ isAdmin ? 'Operacion' : 'Solicitudes' }}</p>
+      <h3 class="text-2xl font-bold text-white">{{ isAdmin ? 'Reservas' : 'Mis reservas' }}</h3>
+    </div>
+    <div class="flex gap-2">
+      <a class="btn-secondary" routerLink="/reservas/disponibilidad">Disponibilidad</a>
+      <a class="btn-primary" [routerLink]="createPath">{{ isAdmin ? 'Nueva reserva' : 'Nueva solicitud' }}</a>
+    </div>
+  </div>
+
+  <div class="card-surface overflow-hidden">
+    <table class="min-w-full divide-y divide-slate-200 text-sm">
+      <thead class="bg-slate-50 text-left text-slate-500">
+        <tr>
+          <th class="px-4 py-3">Usuario</th>
+          <th class="px-4 py-3">Espacio</th>
+          <th class="px-4 py-3">Horario</th>
+          <th class="px-4 py-3">Estado</th>
+          <th class="px-4 py-3">Fecha</th>
+          <th class="px-4 py-3">Acciones</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-slate-100 bg-white">
+        <tr *ngFor="let item of items">
+          <td class="px-4 py-3 font-medium">{{ item.usuario_nombre || item.usuario_id }}</td>
+          <td class="px-4 py-3">{{ item.espacio_nombre || item.espacio_id }}</td>
+          <td class="px-4 py-3">{{ item.horario_nombre || item.horario_id }}</td>
+          <td class="px-4 py-3">
+            <span class="rounded-full px-2.5 py-1 text-xs font-semibold" [ngClass]="estadoClass(item)">
+              {{ item.estado_nombre || item.estado_id }}
+            </span>
+          </td>
+          <td class="px-4 py-3">{{ item.fecha_reserva }}</td>
+          <td class="px-4 py-3">
+            <button *ngIf="canEdit(item)" class="btn-secondary mr-2" (click)="edit(item.id)">Editar</button>
+            <button *ngIf="canApproveOrReject(item)" class="btn-secondary mr-2" (click)="approve(item.id)">Aprobar</button>
+            <button *ngIf="canApproveOrReject(item)" class="btn-secondary mr-2" (click)="reject(item.id)">Rechazar</button>
+            <button *ngIf="canCancel(item)" class="btn-secondary" (click)="cancel(item.id)">Cancelar</button>
+            <span *ngIf="!canEdit(item) && !canApproveOrReject(item) && !canCancel(item)" class="text-xs text-slate-400">Sin acciones</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
