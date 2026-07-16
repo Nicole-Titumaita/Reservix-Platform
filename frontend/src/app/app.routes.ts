@@ -17,6 +17,7 @@ import { EspaciosListComponent } from './features/espacios/espacios-list/espacio
 import { EspaciosFormComponent } from './features/espacios/espacios-form/espacios-form.component';
 import { RecursosListComponent } from './features/recursos/recursos-list/recursos-list.component';
 import { RecursosFormComponent } from './features/recursos/recursos-form/recursos-form.component';
+import { RecursosSeguimientoComponent } from './features/recursos/recursos-seguimiento/recursos-seguimiento.component';
 import { HorariosListComponent } from './features/horarios/horarios-list/horarios-list.component';
 import { HorariosFormComponent } from './features/horarios/horarios-form/horarios-form.component';
 import { EstadosListComponent } from './features/estados/estados-list/estados-list.component';
@@ -57,6 +58,7 @@ export const appRoutes: Routes = [
       { path: 'recursos', component: RecursosListComponent, canActivate: [roleGuard], data: { roles: ['ADMINISTRADOR'] } },
       { path: 'recursos/nuevo', component: RecursosFormComponent, canActivate: [roleGuard], data: { roles: ['ADMINISTRADOR'] } },
       { path: 'recursos/editar/:id', component: RecursosFormComponent, canActivate: [roleGuard], data: { roles: ['ADMINISTRADOR'] } },
+      { path: 'recursos/seguimiento', component: RecursosSeguimientoComponent, canActivate: [roleGuard], data: { roles: ['ADMINISTRADOR'] } },
       { path: 'horarios', component: HorariosListComponent, canActivate: [roleGuard], data: { roles: ['ADMINISTRADOR'] } },
       { path: 'horarios/nuevo', component: HorariosFormComponent, canActivate: [roleGuard], data: { roles: ['ADMINISTRADOR'] } },
       { path: 'horarios/editar/:id', component: HorariosFormComponent, canActivate: [roleGuard], data: { roles: ['ADMINISTRADOR'] } },

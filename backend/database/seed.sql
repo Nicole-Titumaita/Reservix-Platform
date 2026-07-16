@@ -58,3 +58,8 @@ INSERT IGNORE INTO historial_reservas
   (id, reserva_id, usuario_id, estado_anterior_id, estado_nuevo_id, accion, observacion)
 VALUES
   (1, 1, 1, NULL, 9, 'CREACION', 'Reserva semilla creada por el sistema');
+
+INSERT IGNORE INTO historial_recursos
+  (id, recurso_id, usuario_id, rol_id, rol_nombre, estado_anterior_id, estado_nuevo_id, accion, observacion)
+VALUES
+  (1, 1, 1, 1, 'ADMINISTRADOR', 6, 7, 'ASIGNACION', 'Recurso semilla asignado para pruebas de seguimiento');

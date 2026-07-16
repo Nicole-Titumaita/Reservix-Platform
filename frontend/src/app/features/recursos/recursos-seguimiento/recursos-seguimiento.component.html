@@ -1,0 +1,167 @@
+<section class="space-y-5">
+  <div class="flex flex-wrap items-end justify-between gap-3">
+    <div>
+      <p class="text-xs uppercase tracking-[0.35em] text-blue-400">Recursos</p>
+      <h3 class="text-2xl font-bold text-white">Seguimiento de recursos</h3>
+      <p class="mt-2 max-w-2xl text-sm text-slate-300">
+        Registra asignaciones, entregas, devoluciones y observaciones para dejar trazabilidad clara del estado de cada recurso.
+      </p>
+    </div>
+
+    <a class="btn-secondary inline-flex items-center gap-2" routerLink="/recursos">
+      <svg lucideArrowLeft class="h-4 w-4"></svg>
+      <span>Volver</span>
+    </a>
+  </div>
+
+  <div class="grid gap-5 xl:grid-cols-[1.05fr_1.2fr]">
+    <div class="card-surface p-5">
+      <div class="mb-4">
+        <p class="text-xs uppercase tracking-[0.3em] text-blue-500">Nuevo movimiento</p>
+        <h4 class="mt-1 text-lg font-semibold text-slate-900">Registrar trazabilidad</h4>
+      </div>
+
+      <form class="grid gap-4" [formGroup]="form" (ngSubmit)="submit()">
+        <div class="form-field">
+          <label class="form-label">Recurso <span class="form-required">*</span></label>
+          <select class="form-control" formControlName="recurso_id">
+            <option value="">Seleccione un recurso</option>
+            <option *ngFor="let recurso of recursos" [value]="recurso.id">
+              {{ recurso.codigo }} - {{ recurso.nombre }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label class="form-label">Accion <span class="form-required">*</span></label>
+          <select class="form-control" formControlName="accion">
+            <option value="">Seleccione una accion</option>
+            <option *ngFor="let action of actions" [value]="action">{{ action }}</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label class="form-label">Nuevo estado <span class="form-required">*</span></label>
+          <select class="form-control" formControlName="estado_nuevo_id">
+            <option value="">Seleccione un estado</option>
+            <option *ngFor="let estado of estados" [value]="estado.id">{{ estado.nombre }}</option>
+          </select>
+          <p class="form-help">El backend valida que el estado pertenezca a la categoria RECURSO.</p>
+        </div>
+
+        <div class="form-field">
+          <label class="form-label">Rol del registro</label>
+          <div class="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700">
+            {{ sessionRole }}
+          </div>
+          <p class="form-help">El rol se toma automaticamente de tu sesion autenticada.</p>
+        </div>
+
+        <div class="form-field">
+          <label class="form-label">Observacion</label>
+          <textarea
+            class="form-control"
+            rows="4"
+            placeholder="Ej: Proyector entregado al aula 2 para la clase de hoy."
+            formControlName="observacion"
+          ></textarea>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-end gap-3">
+          <button class="btn-primary" type="submit" [disabled]="form.invalid || loading">
+            {{ loading ? 'Guardando...' : 'Registrar movimiento' }}
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="card-surface p-5">
+      <div class="mb-4 flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <p class="text-xs uppercase tracking-[0.3em] text-blue-500">Trazabilidad</p>
+          <h4 class="mt-1 text-lg font-semibold text-slate-900">Movimientos registrados</h4>
+        </div>
+
+        <div class="flex flex-wrap gap-3">
+          <div class="min-w-[220px]">
+            <label class="form-label">Filtrar por rol</label>
+            <select class="form-control" [value]="filtroRolNombre" (change)="onRoleFilterChange($any($event.target).value)">
+              <option value="">Todos los roles</option>
+              <option *ngFor="let rol of roles" [value]="rol">{{ rol }}</option>
+            </select>
+          </div>
+
+          <div class="min-w-[220px]">
+            <label class="form-label">Filtrar por recurso</label>
+            <select class="form-control" [value]="filtroRecursoId" (change)="onFilterChange($any($event.target).value)">
+              <option value="">Todos los recursos</option>
+              <option *ngFor="let recurso of recursos" [value]="recurso.id">
+                {{ recurso.codigo }} - {{ recurso.nombre }}
+              </option>
+            </select>
+          </div>
+
+          <div class="min-w-[220px]">
+            <label class="form-label">Filtrar por acción</label>
+            <select class="form-control" [value]="filtroAccion" (change)="onActionFilterChange($any($event.target).value)">
+              <option value="">Todas las acciones</option>
+              <option *ngFor="let action of actions" [value]="action">{{ action }}</option>
+            </select>
+          </div>
+
+          <button class="btn-secondary h-[46px] self-end" type="button" (click)="clearFilters()">
+            Limpiar filtros
+          </button>
+        </div>
+      </div>
+
+      <div class="mb-4 grid gap-3 md:grid-cols-4">
+        <div class="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
+          <p class="text-xs uppercase tracking-[0.25em] text-slate-500">Total</p>
+          <p class="mt-1 text-2xl font-bold text-slate-900">{{ totalMovements }}</p>
+          <p class="text-xs text-slate-500">Movimientos visibles</p>
+        </div>
+
+        <div *ngFor="let summary of roleSummary" class="rounded-2xl border border-slate-200 bg-white px-4 py-3">
+          <p class="text-xs uppercase tracking-[0.25em] text-slate-500">{{ summary.role }}</p>
+          <p class="mt-1 text-2xl font-bold text-slate-900">{{ summary.count }}</p>
+          <p class="text-xs text-slate-500">Registros en seguimiento</p>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-slate-200 text-sm">
+          <thead class="bg-slate-50 text-left text-xs uppercase tracking-[0.2em] text-slate-500">
+            <tr>
+              <th class="px-4 py-3 font-semibold">Recurso</th>
+              <th class="px-4 py-3 font-semibold">Rol</th>
+              <th class="px-4 py-3 font-semibold">Accion</th>
+              <th class="px-4 py-3 font-semibold">Estado anterior</th>
+              <th class="px-4 py-3 font-semibold">Estado nuevo</th>
+              <th class="px-4 py-3 font-semibold">Observacion</th>
+              <th class="px-4 py-3 font-semibold">Fecha</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 bg-white">
+            <tr *ngFor="let item of movimientos">
+              <td class="px-4 py-3">
+                <div class="font-medium text-slate-900">{{ item.recurso_codigo || item.recurso_id }}</div>
+                <div class="text-xs text-slate-500">{{ item.recurso_nombre || '-' }}</div>
+              </td>
+              <td class="px-4 py-3 text-slate-700">{{ item.rol_nombre || '-' }}</td>
+              <td class="px-4 py-3 text-slate-700">{{ item.accion }}</td>
+              <td class="px-4 py-3 text-slate-600">{{ item.estado_anterior_nombre || '-' }}</td>
+              <td class="px-4 py-3 text-slate-600">{{ item.estado_nuevo_nombre || item.estado_nuevo_id }}</td>
+              <td class="px-4 py-3 text-slate-600">{{ item.observacion || '-' }}</td>
+              <td class="px-4 py-3 text-slate-500">{{ item.fecha_accion }}</td>
+            </tr>
+
+            <tr *ngIf="movimientos.length === 0">
+              <td class="px-4 py-6 text-center text-slate-500" colspan="7">Todavia no hay movimientos registrados.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>

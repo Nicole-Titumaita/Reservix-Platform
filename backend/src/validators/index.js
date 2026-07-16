@@ -151,6 +151,29 @@ function validateRecursoPayload(payload) {
   requireFields(payload, ['codigo', 'nombre', 'tipo', 'estado_id']);
 }
 
+function validateRecursoMovimientoPayload(payload) {
+  sanitizePayload(payload, ['accion', 'observacion']);
+  requireFields(payload, ['recurso_id', 'estado_nuevo_id', 'accion']);
+  if (payload.estado_anterior_id !== undefined && payload.estado_anterior_id !== null && payload.estado_anterior_id !== '') {
+    payload.estado_anterior_id = Number(payload.estado_anterior_id);
+  }
+  payload.recurso_id = Number(payload.recurso_id);
+  payload.estado_nuevo_id = Number(payload.estado_nuevo_id);
+  if (!Number.isFinite(payload.recurso_id) || !Number.isFinite(payload.estado_nuevo_id)) {
+    const error = new Error('Los identificadores del recurso y estado deben ser validos');
+    error.status = 400;
+    throw error;
+  }
+  if (!/^[\p{L}\p{N}\s_-]{2,80}$/u.test(payload.accion)) {
+    const error = new Error('La accion del recurso debe contener entre 2 y 80 caracteres validos');
+    error.status = 400;
+    throw error;
+  }
+  if (payload.observacion) {
+    payload.observacion = cleanString(payload.observacion, 1000);
+  }
+}
+
 function validateHorarioPayload(payload) {
   sanitizePayload(payload, ['nombre', 'dia_semana', 'hora_inicio', 'hora_fin']);
   requireFields(payload, ['nombre', 'dia_semana', 'hora_inicio', 'hora_fin']);
@@ -194,5 +217,6 @@ module.exports = {
   validateRecursoPayload,
   validateHorarioPayload,
   validateEstadoPayload,
-  validateReservaPayload
+  validateReservaPayload,
+  validateRecursoMovimientoPayload
 };

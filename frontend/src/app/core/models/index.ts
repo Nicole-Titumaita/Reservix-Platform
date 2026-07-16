@@ -125,6 +125,25 @@ export interface Recurso {
   estado_nombre?: string;
 }
 
+export interface RecursoMovimiento {
+  id: number;
+  recurso_id: number;
+  usuario_id: number;
+  rol_id: number;
+  rol_nombre: string;
+  estado_anterior_id?: number | null;
+  estado_nuevo_id: number;
+  accion: string;
+  observacion?: string | null;
+  fecha_accion: string;
+  recurso_codigo?: string;
+  recurso_nombre?: string;
+  usuario_nombre?: string;
+  usuario_apellido?: string;
+  estado_anterior_nombre?: string | null;
+  estado_nuevo_nombre?: string;
+}
+
 export interface Horario {
   id: number;
   nombre: string;

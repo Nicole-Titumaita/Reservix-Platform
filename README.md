@@ -46,6 +46,12 @@ PROYECTO CRUD/
 
 ### Variables de entorno
 
+Los archivos `.env` reales no se suben al repositorio. El proyecto usa estas reglas:
+
+- `backend/.env` y `frontend/.env` quedan ignorados por git.
+- `backend/.env.example` se usa como plantilla para crear el `.env` local.
+- Si necesitas variables en frontend, usa `frontend/src/environments/environment.ts` o una plantilla propia si luego la agregas.
+
 Antes de ejecutar, copia la plantilla de backend y completa tus valores locales:
 
 ```bash
@@ -55,6 +61,8 @@ copy backend\.env.example backend\.env
 Si trabajas en Windows PowerShell, tambien puedes crear el archivo manualmente y editarlo con tus credenciales locales.
 
 El frontend no necesita archivo `.env`; usa `frontend/src/environments/environment.ts` y, en local, apunta automaticamente a `http://localhost:3001/api`.
+
+Si quieres verificar que todo está excluido antes de subir cambios, evita usar `git add .` a ciegas y revisa primero con `git status`.
 
 ### Backend
 
@@ -100,6 +108,9 @@ Scripts principales:
 - `backend/database/migrations/002_create_two_factor_codes.sql`
 - `backend/database/migrations/003_operational_security_phase2.sql`
 - `backend/database/migrations/004_high_priority_security_performance.sql`
+- `backend/database/migrations/005_password_reset_flow.sql`
+- `backend/database/migrations/006_institutional_codes.sql`
+- `backend/database/migrations/007_create_historial_recursos.sql`
 
 ## Autenticacion con 2FA
 
@@ -114,6 +125,22 @@ Flujo:
 5. El OTP expira en 5 minutos.
 6. El frontend muestra una pantalla para ingresar el codigo.
 7. Solo despues de validar el OTP se entrega el JWT.
+
+## Seguimiento de recursos
+
+Ademas del CRUD de recursos, el sistema incluye un modulo de seguimiento para registrar movimientos como:
+
+- asignacion
+- entrega
+- devolucion
+- revision
+- mantenimiento
+- baja
+- incidencia
+
+Ese seguimiento queda almacenado en `historial_recursos` y se consulta desde el frontend en `/recursos/seguimiento`.
+Cada movimiento registra tambien el rol del actor autenticado, para dejar trazabilidad por `ADMINISTRADOR`, `DOCENTE` o `ESTUDIANTE` segun la sesion activa.
+Desde la pantalla de seguimiento tambien se puede filtrar por rol o por recurso para revisar la trazabilidad por cada tipo de usuario.
 
 ## Probar Login con 2FA usando Usuarios Demo
 

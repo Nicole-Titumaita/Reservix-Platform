@@ -4,6 +4,7 @@ module.exports = {
   estados: require('./estados.model'),
   espacios: require('./espacios.model'),
   recursos: require('./recursos.model'),
+  recursosMovimientos: require('./recursos-movimientos.model'),
   horarios: require('./horarios.model'),
   reservas: require('./reservas.model'),
   historial: require('./historial.model'),

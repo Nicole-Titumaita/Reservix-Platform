@@ -56,6 +56,7 @@ Servicios creados:
 - `UsuariosService`
 - `EspaciosService`
 - `RecursosService`
+- Seguimiento de recursos mediante el modulo `recursos-seguimiento`
 - `HorariosService`
 - `EstadosService`
 - `ReservasService`
@@ -107,6 +108,7 @@ Modulos creados dentro de `src/app/features`:
 - `estados`
 - `reservas`
 - `historial`
+- `recursos/recursos-seguimiento`
 
 Cada componente respeta la separacion:
 
@@ -212,6 +214,7 @@ Rutas principales:
 - `/recursos`
 - `/recursos/nuevo`
 - `/recursos/editar/:id`
+- `/recursos/seguimiento`
 - `/horarios`
 - `/horarios/nuevo`
 - `/horarios/editar/:id`
@@ -240,6 +243,9 @@ El frontend ya tiene:
 - Formularios reactivos.
 - CRUD visual inicial para los modulos principales.
 - Edicion funcional para usuarios, roles, estados, espacios, recursos, horarios y reservas.
+- Seguimiento de recursos con registro de movimientos y trazabilidad de estado, mostrando el rol autenticado que genero cada movimiento.
+- La vista de seguimiento permite filtrar por rol, por recurso y por accion para revisar la trazabilidad de cada usuario.
+- La vista tambien muestra un resumen por rol con el total de movimientos visibles.
 - Menu separado por rol: los usuarios no administradores no ven opciones exclusivas del admin.
 - Reservas personales para docentes y estudiantes usando `GET /api/reservas/mis-reservas`.
 - Seguimiento personal usando `GET /api/historial/mi-historial`.

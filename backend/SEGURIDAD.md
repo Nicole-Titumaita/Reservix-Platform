@@ -22,6 +22,7 @@ Proyecto: `Sistema Academico de Reservas de Espacios y Recursos Tecnologicos`
 - Manejo de errores sin exponer detalles internos en produccion.
 - Registro persistente de intentos de login en `login_attempts`.
 - Auditoria de acciones importantes en `auditoria`.
+- Seguimiento de recursos en `historial_recursos`, incluyendo el rol autenticado que genero cada movimiento.
 - Tabla preparada para recuperacion segura de contrasena en `password_resets`.
 
 ## Variables obligatorias
@@ -95,6 +96,12 @@ Antes de produccion:
 - `POST /api/recursos`
 - `PUT /api/recursos/:id`
 - `DELETE /api/recursos/:id`
+- `GET /api/recursos/movimientos`
+- `GET /api/recursos/movimientos/:recursoId`
+- `POST /api/recursos/movimientos`
+
+Los movimientos de recursos guardan automaticamente el `rol_id` y `rol_nombre` de la sesion autenticada, para que cada registro quede trazado por rol.
+La consulta de seguimiento acepta filtros por rol, por accion y por recurso en la pantalla administrativa.
 - `POST /api/horarios`
 - `PUT /api/horarios/:id`
 - `DELETE /api/horarios/:id`
@@ -533,6 +540,7 @@ Acciones registradas actualmente:
 - `RECURSO_CREADO`
 - `RECURSO_ACTUALIZADO`
 - `RECURSO_ELIMINADO`
+- `RECURSO_MOVIMIENTO_REGISTRADO`
 - `RESERVA_CREADA`
 - `RESERVA_ACTUALIZADA`
 - `RESERVA_ELIMINADA`

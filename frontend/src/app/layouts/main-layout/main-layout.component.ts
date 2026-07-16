@@ -50,6 +50,7 @@ export class MainLayoutComponent {
     { label: 'Roles', path: '/roles', icon: LucideShield },
     { label: 'Espacios', path: '/espacios', icon: LucideLandmark },
     { label: 'Recursos', path: '/recursos', icon: LucideLaptopMinimal },
+    { label: 'Seguimiento recursos', path: '/recursos/seguimiento', icon: LucideHistory },
     { label: 'Horarios', path: '/horarios', icon: LucideClock3 },
     { label: 'Estados', path: '/estados', icon: LucideCircleDot },
     { label: 'Reservas', path: '/reservas', icon: LucideCalendarRange },

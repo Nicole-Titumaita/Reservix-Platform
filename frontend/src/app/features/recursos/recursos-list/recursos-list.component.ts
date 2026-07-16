@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { LucideArrowLeft, LucidePlus, LucideSquarePen, LucideTrash2 } from '@lucide/angular';
+import { LucideArrowLeft, LucideHistory, LucidePlus, LucideSquarePen, LucideTrash2 } from '@lucide/angular';
 import { Recurso } from '../../../core/models';
 import { RecursosService } from '../../../core/services/recursos.service';
 
 @Component({
   selector: 'app-recursos-list',
   standalone: true,
-  imports: [CommonModule, RouterLink, LucideArrowLeft, LucidePlus, LucideSquarePen, LucideTrash2],
+  imports: [CommonModule, RouterLink, LucideArrowLeft, LucideHistory, LucidePlus, LucideSquarePen, LucideTrash2],
   templateUrl: './recursos-list.component.html',
   styleUrls: ['./recursos-list.component.scss']
 })

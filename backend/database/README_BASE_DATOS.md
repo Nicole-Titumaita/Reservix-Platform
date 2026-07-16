@@ -13,6 +13,7 @@ Base actual: `sistema_reservas_academico`
 - `reservas`
 - `reserva_recursos`
 - `historial_reservas`
+- `historial_recursos`
 
 ## Lo que ya cubre
 
@@ -23,6 +24,7 @@ Base actual: `sistema_reservas_academico`
 - Horarios base.
 - Reservas con usuario, espacio, horario, estado, fechas, motivo y observaciones.
 - Recursos asociados a una reserva mediante `reserva_recursos`.
+- Seguimiento de recursos mediante `historial_recursos` para registrar asignaciones, entregas, devoluciones y cambios de estado.
 - Historial de movimientos de reserva mediante `historial_reservas`.
 
 ## Lo que falta para una version mas completa
@@ -42,7 +44,7 @@ Base actual: `sistema_reservas_academico`
 ## Prioridad recomendada
 
 1. Agregar indices por fechas en `reservas`.
-2. Agregar mantenimiento de espacios y recursos.
+2. Agregar seguimiento de recursos y mantenimiento de espacios si el flujo academico lo requiere.
 3. Agregar notificaciones.
 4. Agregar auditoria general.
 5. Agregar perfiles academicos si el proyecto necesita datos mas especificos de alumnos y docentes.

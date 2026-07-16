@@ -78,6 +78,7 @@ Modelos:
 - `backend/src/models/estados.model.js`
 - `backend/src/models/espacios.model.js`
 - `backend/src/models/recursos.model.js`
+- `backend/src/models/recursos-movimientos.model.js`
 - `backend/src/models/horarios.model.js`
 - `backend/src/models/reservas.model.js`
 - `backend/src/models/historial.model.js`
@@ -90,6 +91,7 @@ Servicios:
 - `backend/src/services/estados.service.js`
 - `backend/src/services/espacios.service.js`
 - `backend/src/services/recursos.service.js`
+- `backend/src/services/recursos-movimientos.service.js`
 - `backend/src/services/horarios.service.js`
 - `backend/src/services/reservas.service.js`
 - `backend/src/services/historial.service.js`
@@ -102,6 +104,7 @@ Controladores:
 - `backend/src/controllers/estados.controller.js`
 - `backend/src/controllers/espacios.controller.js`
 - `backend/src/controllers/recursos.controller.js`
+- `backend/src/controllers/recursos-movimientos.controller.js`
 - `backend/src/controllers/horarios.controller.js`
 - `backend/src/controllers/reservas.controller.js`
 - `backend/src/controllers/historial.controller.js`
@@ -177,6 +180,10 @@ Reglas:
 - `POST /api/recursos`
 - `PUT /api/recursos/:id`
 - `DELETE /api/recursos/:id`
+- `GET /api/recursos/movimientos`
+- `GET /api/recursos/movimientos/:recursoId`
+- `POST /api/recursos/movimientos`
+  - La consulta de movimientos acepta filtros por `rol_nombre`, `accion` y por recurso para revisar trazabilidad por rol.
 
 ### Horarios
 
@@ -220,6 +227,7 @@ Tablas:
 - `estados`
 - `espacios`
 - `recursos`
+- `historial_recursos`
 - `horarios`
 - `reservas`
 - `reserva_recursos`
@@ -248,6 +256,7 @@ Datos de prueba:
 - Validacion de codigos duplicados en espacios y recursos.
 - Validacion inicial de choques de horario en reservas.
 - Registro de historial al crear, actualizar, aprobar, rechazar, cancelar o eliminar reservas.
+- Registro de seguimiento de recursos cuando se registran movimientos de asignacion, entrega, devolucion o mantenimiento, con trazabilidad por rol autenticado.
 
 ## 8. Relacion con el frontend
 
@@ -268,6 +277,7 @@ Para que esos formularios funcionen como CRUD completo, el backend debe conserva
 - `POST /api/<modulo>` para crear.
 - `PUT /api/<modulo>/:id` para actualizar.
 - `DELETE /api/<modulo>/:id` para eliminar o desactivar.
+- En recursos, tambien existen endpoints de seguimiento para registrar movimientos y consultar trazabilidad. Cada movimiento registra el rol de la sesion autenticada.
 
 Tambien debe devolver errores claros para que el frontend pueda mostrarlos debajo de cada campo.
 
