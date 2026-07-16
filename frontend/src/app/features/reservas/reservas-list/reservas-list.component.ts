@@ -29,7 +29,7 @@ export class ReservasListComponent implements OnInit {
   }
 
   edit(id: number): void {
-    this.router.navigate([this.isAdmin ? '/reservas/editar' : '/mis-reservas/editar', id]);
+    this.router.navigate([this.isAdmin ? '/reservas/editar' : '/estudiante/reservas/editar', id]);
   }
 
   get isAdmin(): boolean {
@@ -37,7 +37,7 @@ export class ReservasListComponent implements OnInit {
   }
 
   get createPath(): string {
-    return this.isAdmin ? '/reservas/nueva' : '/mis-reservas/nueva';
+    return this.isAdmin ? '/reservas/nueva' : '/estudiante/reservas/nueva';
   }
 
   approve(id: number): void {

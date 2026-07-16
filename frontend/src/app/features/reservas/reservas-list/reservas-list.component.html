@@ -1,47 +1,92 @@
-<section class="space-y-5">
-  <div class="flex items-center justify-between gap-4">
-    <div>
-      <p class="text-xs uppercase tracking-[0.35em] text-blue-400">{{ isAdmin ? 'Operacion' : 'Solicitudes' }}</p>
-      <h3 class="text-2xl font-bold text-white">{{ isAdmin ? 'Reservas' : 'Mis reservas' }}</h3>
-    </div>
-    <div class="flex gap-2">
-      <a class="btn-secondary" routerLink="/reservas/disponibilidad">Disponibilidad</a>
-      <a class="btn-primary" [routerLink]="createPath">{{ isAdmin ? 'Nueva reserva' : 'Nueva solicitud' }}</a>
+<section class="reservas-list-page space-y-4">
+  <div class="card-surface reservas-hero p-4 lg:p-5">
+    <div class="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+      <div>
+        <p class="text-[10px] font-semibold uppercase tracking-[0.35em] text-blue-600">{{ isAdmin ? 'Operacion' : 'Solicitudes' }}</p>
+        <h3 class="mt-2 text-xl font-bold text-slate-900">{{ isAdmin ? 'Reservas' : 'Mis reservas' }}</h3>
+        <p class="mt-2 max-w-2xl text-sm text-slate-600">
+          {{ isAdmin ? 'Gestiona solicitudes, aprobaciones y cancelaciones desde una vista centralizada.' : 'Revisa tus solicitudes, estados y acciones disponibles desde una sola pantalla.' }}
+        </p>
+      </div>
+
+      <div class="flex flex-wrap gap-2">
+        <a class="btn-secondary inline-flex items-center gap-2" routerLink="/reservas/disponibilidad">Disponibilidad</a>
+        <a class="btn-primary inline-flex items-center gap-2" [routerLink]="createPath">{{ isAdmin ? 'Nueva reserva' : 'Nueva solicitud' }}</a>
+      </div>
     </div>
   </div>
 
-  <div class="card-surface overflow-hidden">
-    <table class="min-w-full divide-y divide-slate-200 text-sm">
-      <thead class="bg-slate-50 text-left text-slate-500">
-        <tr>
-          <th class="px-4 py-3">Usuario</th>
-          <th class="px-4 py-3">Espacio</th>
-          <th class="px-4 py-3">Horario</th>
-          <th class="px-4 py-3">Estado</th>
-          <th class="px-4 py-3">Fecha</th>
-          <th class="px-4 py-3">Acciones</th>
-        </tr>
-      </thead>
-      <tbody class="divide-y divide-slate-100 bg-white">
-        <tr *ngFor="let item of items">
-          <td class="px-4 py-3 font-medium">{{ item.usuario_nombre || item.usuario_id }}</td>
-          <td class="px-4 py-3">{{ item.espacio_nombre || item.espacio_id }}</td>
-          <td class="px-4 py-3">{{ item.horario_nombre || item.horario_id }}</td>
-          <td class="px-4 py-3">
-            <span class="rounded-full px-2.5 py-1 text-xs font-semibold" [ngClass]="estadoClass(item)">
-              {{ item.estado_nombre || item.estado_id }}
-            </span>
-          </td>
-          <td class="px-4 py-3">{{ item.fecha_reserva }}</td>
-          <td class="px-4 py-3">
-            <button *ngIf="canEdit(item)" class="btn-secondary mr-2" (click)="edit(item.id)">Editar</button>
-            <button *ngIf="canApproveOrReject(item)" class="btn-secondary mr-2" (click)="approve(item.id)">Aprobar</button>
-            <button *ngIf="canApproveOrReject(item)" class="btn-secondary mr-2" (click)="reject(item.id)">Rechazar</button>
-            <button *ngIf="canCancel(item)" class="btn-secondary" (click)="cancel(item.id)">Cancelar</button>
-            <span *ngIf="!canEdit(item) && !canApproveOrReject(item) && !canCancel(item)" class="text-xs text-slate-400">Sin acciones</span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="grid gap-3 lg:grid-cols-[1.1fr_0.9fr]">
+    <div class="card-surface reservas-guide p-4 lg:p-5">
+      <p class="text-[10px] font-semibold uppercase tracking-[0.35em] text-blue-600">Guia rapida</p>
+      <h4 class="mt-2 text-lg font-bold text-slate-900">{{ isAdmin ? 'Como operar reservas' : 'Como usar tus reservas' }}</h4>
+      <div class="mt-4 grid gap-3 md:grid-cols-3">
+        <div class="reservas-tip-card rounded-2xl p-3">
+          <p class="text-xs font-semibold text-slate-900">1. Valida horario</p>
+          <p class="mt-1 text-xs leading-5 text-slate-600">Consulta disponibilidad antes de editar o crear una solicitud.</p>
+        </div>
+        <div class="reservas-tip-card rounded-2xl p-3">
+          <p class="text-xs font-semibold text-slate-900">2. Revisa estado</p>
+          <p class="mt-1 text-xs leading-5 text-slate-600">Pendiente, aprobada, rechazada o cancelada te indican el siguiente paso.</p>
+        </div>
+        <div class="reservas-tip-card rounded-2xl p-3">
+          <p class="text-xs font-semibold text-slate-900">3. Toma accion</p>
+          <p class="mt-1 text-xs leading-5 text-slate-600">Solo las reservas permitidas muestran botones activos.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-surface reservas-legend p-4 lg:p-5">
+      <p class="text-[10px] font-semibold uppercase tracking-[0.35em] text-blue-600">Estados</p>
+      <h4 class="mt-2 text-lg font-bold text-slate-900">Leyenda visual</h4>
+      <div class="mt-4 flex flex-wrap gap-2">
+        <span class="reservas-state reservas-state--pending">Pendiente</span>
+        <span class="reservas-state reservas-state--approved">Aprobada</span>
+        <span class="reservas-state reservas-state--rejected">Rechazada</span>
+        <span class="reservas-state reservas-state--cancelled">Cancelada</span>
+      </div>
+      <p class="mt-4 text-sm leading-6 text-slate-600">
+        Los colores ayudan a identificar rapidamente que puede aprobarse, cancelarse o quedarse como trazabilidad.
+      </p>
+    </div>
+  </div>
+
+  <div class="card-surface reservas-table overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-slate-200 text-sm">
+        <thead class="bg-slate-50 text-left text-slate-500">
+          <tr>
+            <th class="px-4 py-3">Usuario</th>
+            <th class="px-4 py-3">Espacio</th>
+            <th class="px-4 py-3">Horario</th>
+            <th class="px-4 py-3">Estado</th>
+            <th class="px-4 py-3">Fecha</th>
+            <th class="px-4 py-3">Acciones</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100 bg-white">
+          <tr *ngFor="let item of items">
+            <td class="px-4 py-3 font-medium">{{ item.usuario_nombre || item.usuario_id }}</td>
+            <td class="px-4 py-3">{{ item.espacio_nombre || item.espacio_id }}</td>
+            <td class="px-4 py-3">{{ item.horario_nombre || item.horario_id }}</td>
+            <td class="px-4 py-3">
+              <span class="rounded-full px-2.5 py-1 text-xs font-semibold" [ngClass]="estadoClass(item)">
+                {{ item.estado_nombre || item.estado_id }}
+              </span>
+            </td>
+            <td class="px-4 py-3">{{ item.fecha_reserva }}</td>
+            <td class="px-4 py-3">
+              <div class="flex flex-wrap gap-2">
+                <button *ngIf="canEdit(item)" class="btn-secondary" (click)="edit(item.id)">Editar</button>
+                <button *ngIf="canApproveOrReject(item)" class="btn-secondary" (click)="approve(item.id)">Aprobar</button>
+                <button *ngIf="canApproveOrReject(item)" class="btn-secondary" (click)="reject(item.id)">Rechazar</button>
+                <button *ngIf="canCancel(item)" class="btn-secondary" (click)="cancel(item.id)">Cancelar</button>
+                <span *ngIf="!canEdit(item) && !canApproveOrReject(item) && !canCancel(item)" class="text-xs text-slate-400">Sin acciones</span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </section>

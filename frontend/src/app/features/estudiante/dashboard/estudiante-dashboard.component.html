@@ -1,0 +1,52 @@
+<section class="estudiante-page space-y-5">
+  <div class="card-surface estudiante-hero p-5 lg:p-6">
+    <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+      <div class="space-y-2">
+        <p class="text-[10px] font-semibold uppercase tracking-[0.35em] text-blue-600">Panel estudiante</p>
+        <h3 class="text-2xl font-bold text-slate-900">Gestiona tus reservas académicas</h3>
+        <p class="max-w-2xl text-sm leading-6 text-slate-600">
+          Tienes un espacio propio para crear reservas, revisar disponibilidad y consultar el historial sin mezclarte con admin o docente.
+        </p>
+      </div>
+      <a class="btn-primary inline-flex items-center gap-2 self-start" routerLink="/estudiante/reservas/nueva">
+        <span>Nueva reserva</span>
+        <svg lucideArrowRight class="h-4 w-4"></svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="grid gap-3 md:grid-cols-3">
+    <div *ngFor="let card of cards" class="card-surface estudiante-stat-card p-4">
+      <p class="text-xs font-semibold uppercase tracking-[0.3em] text-blue-600">{{ card.title }}</p>
+      <h4 class="mt-2 text-lg font-bold text-slate-900">{{ card.value }}</h4>
+      <p class="mt-2 text-sm leading-6 text-slate-600">{{ card.description }}</p>
+    </div>
+  </div>
+
+  <div class="grid gap-4 lg:grid-cols-[1.05fr_0.95fr]">
+    <div class="card-surface estudiante-panel p-5 lg:p-6">
+      <p class="text-[10px] font-semibold uppercase tracking-[0.35em] text-blue-600">Accesos rapidos</p>
+      <h4 class="mt-2 text-lg font-bold text-slate-900">Rutas principales</h4>
+      <div class="mt-4 grid gap-3 sm:grid-cols-2">
+        <a *ngFor="let link of links" class="estudiante-link rounded-2xl px-4 py-3 transition" [routerLink]="link.path">
+          <p class="text-sm font-semibold text-slate-900">{{ link.label }}</p>
+          <p class="mt-1 text-xs text-slate-600">{{ link.action }}</p>
+        </a>
+      </div>
+    </div>
+
+    <div class="card-surface estudiante-panel p-5 lg:p-6">
+      <p class="text-[10px] font-semibold uppercase tracking-[0.35em] text-blue-600">Guia</p>
+      <h4 class="mt-2 text-lg font-bold text-slate-900">Flujo recomendado</h4>
+      <div class="mt-4 space-y-3">
+        <div *ngFor="let tip of tips" class="estudiante-tip rounded-2xl px-4 py-3 text-sm text-slate-600">
+          {{ tip }}
+        </div>
+      </div>
+
+      <div class="mt-5 rounded-2xl border border-blue-100 bg-blue-50 px-4 py-3 text-sm text-slate-700">
+        Rol activo: {{ role }}
+      </div>
+    </div>
+  </div>
+</section>

@@ -57,11 +57,20 @@ export class MainLayoutComponent {
     { label: 'Historial', path: '/historial', icon: LucideHistory }
   ];
 
-  readonly publicMenu = [
-    { label: 'Dashboard', path: '/dashboard', icon: LucideLayoutDashboard },
-    { label: 'Mis reservas', path: '/mis-reservas', icon: LucideCalendarRange },
-    { label: 'Disponibilidad', path: '/reservas/disponibilidad', icon: LucideClock3 },
-    { label: 'Mi historial', path: '/mi-historial', icon: LucideHistory }
+  readonly docenteMenu = [
+    { label: 'Panel docente', path: '/docente/dashboard', icon: LucideLayoutDashboard },
+    { label: 'Nueva reserva', path: '/docente/reservas/nueva', icon: LucideCalendarRange },
+    { label: 'Mis reservas', path: '/docente/reservas', icon: LucideCalendarRange },
+    { label: 'Disponibilidad', path: '/docente/disponibilidad', icon: LucideClock3 },
+    { label: 'Mi historial', path: '/docente/historial', icon: LucideHistory }
+  ];
+
+  readonly studentMenu = [
+    { label: 'Panel estudiante', path: '/estudiante/dashboard', icon: LucideLayoutDashboard },
+    { label: 'Mis reservas', path: '/estudiante/reservas', icon: LucideCalendarRange },
+    { label: 'Nueva reserva', path: '/estudiante/reservas/nueva', icon: LucideCalendarRange },
+    { label: 'Disponibilidad', path: '/estudiante/disponibilidad', icon: LucideClock3 },
+    { label: 'Mi historial', path: '/estudiante/historial', icon: LucideHistory }
   ];
 
   readonly role = localStorage.getItem('role') || '';
@@ -69,15 +78,23 @@ export class MainLayoutComponent {
   constructor(private auth: AuthService, private router: Router) {}
 
   get visibleMenu() {
-    return this.role === 'ADMINISTRADOR' ? this.menu : this.publicMenu;
+    if (this.role === 'ADMINISTRADOR') return this.menu;
+    if (this.role === 'DOCENTE') return this.docenteMenu;
+    return this.studentMenu;
   }
 
   get isAdmin(): boolean {
     return this.role === 'ADMINISTRADOR';
   }
 
+  get homePath(): string {
+    return this.auth.getLandingPathForRole(this.role);
+  }
+
   get reservaCreatePath(): string {
-    return this.isAdmin ? '/reservas/nueva' : '/mis-reservas/nueva';
+    if (this.isAdmin) return '/reservas/nueva';
+    if (this.role === 'DOCENTE') return '/docente/reservas/nueva';
+    return '/estudiante/reservas/nueva';
   }
 
   toggleSidebar(): void {

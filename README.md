@@ -111,6 +111,7 @@ Scripts principales:
 - `backend/database/migrations/005_password_reset_flow.sql`
 - `backend/database/migrations/006_institutional_codes.sql`
 - `backend/database/migrations/007_create_historial_recursos.sql`
+- `backend/database/migrations/009_fix_institutional_codes_tables.sql`
 
 ## Autenticacion con 2FA
 
@@ -141,6 +142,27 @@ Ademas del CRUD de recursos, el sistema incluye un modulo de seguimiento para re
 Ese seguimiento queda almacenado en `historial_recursos` y se consulta desde el frontend en `/recursos/seguimiento`.
 Cada movimiento registra tambien el rol del actor autenticado, para dejar trazabilidad por `ADMINISTRADOR`, `DOCENTE` o `ESTUDIANTE` segun la sesion activa.
 Desde la pantalla de seguimiento tambien se puede filtrar por rol o por recurso para revisar la trazabilidad por cada tipo de usuario.
+
+## Panel Docente
+
+El rol `DOCENTE` tiene un panel propio en `/docente/dashboard` para no mezclar su experiencia con el panel administrativo.
+
+Incluye:
+
+- Resumen de reservas del docente.
+- Proximas reservas.
+- Actividad reciente de sus solicitudes.
+- Accesos rapidos a nueva reserva, mis reservas, disponibilidad e historial.
+
+Rutas principales del docente:
+
+- `/docente/dashboard`
+- `/docente/reservas`
+- `/docente/reservas/nueva`
+- `/docente/disponibilidad`
+- `/docente/historial`
+
+El backend expone `GET /api/docente/dashboard` para alimentar este panel con datos reales de reservas e historial del usuario autenticado.
 
 ## Probar Login con 2FA usando Usuarios Demo
 
@@ -294,6 +316,16 @@ two_factor_codes
 ```
 
 Los campos antiguos de OTP temporal en `usuarios` no deben usarse para nuevos codigos.
+
+### Tabla de codigos institucionales
+
+Si tu base de datos fue creada antes de agregar el modulo de registro con codigo institucional, aplica esta migracion adicional:
+
+```sql
+SOURCE backend/database/migrations/009_fix_institutional_codes_tables.sql;
+```
+
+Ademas, el backend ahora intenta crear automaticamente las tablas `institutional_code_sequences` e `institutional_codes` al arrancar, como respaldo para bases antiguas que aun no hayan aplicado la migracion.
 
 ## Migracion De Alta Prioridad
 

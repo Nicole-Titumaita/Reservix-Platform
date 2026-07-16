@@ -1,0 +1,64 @@
+.docente-reservas {
+  font-size: 0.875rem;
+}
+
+.docente-reservas .card-surface {
+  min-height: auto;
+}
+
+.docente-hero {
+  background:
+    radial-gradient(circle at top right, rgba(59, 130, 246, 0.12), transparent 30%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.94));
+}
+
+.docente-guide,
+.docente-legend {
+  border-color: rgba(191, 219, 254, 0.75);
+}
+
+.docente-tip-card,
+.docente-empty-state {
+  border: 1px solid rgba(226, 232, 240, 0.92);
+  background: linear-gradient(180deg, rgba(248, 250, 252, 0.96), rgba(255, 255, 255, 0.98));
+}
+
+.docente-reserva-card {
+  border-color: rgba(148, 163, 184, 0.18);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(248, 250, 252, 0.94));
+}
+
+.docente-state {
+  border-radius: 999px;
+  border: 1px solid transparent;
+  display: inline-flex;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 0.45rem 0.7rem;
+  text-transform: uppercase;
+}
+
+.docente-state--pending {
+  background: #fffbeb;
+  border-color: #fcd34d;
+  color: #b45309;
+}
+
+.docente-state--approved {
+  background: #ecfdf5;
+  border-color: #6ee7b7;
+  color: #047857;
+}
+
+.docente-state--rejected {
+  background: #fff1f2;
+  border-color: #fda4af;
+  color: #be123c;
+}
+
+.docente-state--cancelled {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  color: #475569;
+}

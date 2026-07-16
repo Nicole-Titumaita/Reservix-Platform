@@ -82,6 +82,19 @@ export class AuthService {
     localStorage.removeItem('user');
   }
 
+  getLandingPathForRole(role: string): string {
+    switch (role) {
+      case 'ADMINISTRADOR':
+        return '/dashboard';
+      case 'DOCENTE':
+        return '/docente/dashboard';
+      case 'ESTUDIANTE':
+        return '/estudiante/dashboard';
+      default:
+        return '/dashboard';
+    }
+  }
+
   getToken(): string | null {
     return localStorage.getItem('token');
   }

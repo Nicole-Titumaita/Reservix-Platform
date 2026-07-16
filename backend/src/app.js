@@ -14,6 +14,7 @@ const horariosRoutes = require('./routes/horarios.routes');
 const estadosRoutes = require('./routes/estados.routes');
 const reservasRoutes = require('./routes/reservas.routes');
 const historialRoutes = require('./routes/historial.routes');
+const docenteRoutes = require('./routes/docente.routes');
 
 const { notFoundHandler, errorHandler } = require('./middlewares/error.middleware');
 const { apiBurstLimiter } = require('./middlewares/rate-limit.middleware');
@@ -115,6 +116,7 @@ app.use('/api/horarios', horariosRoutes);
 app.use('/api/estados', estadosRoutes);
 app.use('/api/reservas', reservasRoutes);
 app.use('/api/historial', historialRoutes);
+app.use('/api/docente', docenteRoutes);
 
 app.use(notFoundHandler);
 app.use(errorHandler);

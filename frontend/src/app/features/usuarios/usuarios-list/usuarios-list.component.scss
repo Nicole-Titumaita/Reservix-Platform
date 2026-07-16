@@ -1,1 +1,35 @@
-/* Estilos locales del listado de usuarios */
+.usuarios-list-page {
+  font-size: 0.875rem;
+}
+
+.usuarios-list-page .card-surface {
+  min-height: auto;
+}
+
+.usuarios-hero {
+  background:
+    radial-gradient(circle at top right, rgba(59, 130, 246, 0.12), transparent 30%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.94));
+}
+
+.usuarios-guide,
+.usuarios-legend,
+.usuarios-table {
+  border-color: rgba(191, 219, 254, 0.78);
+}
+
+.usuarios-tip-card,
+.usuarios-chip {
+  border: 1px solid rgba(226, 232, 240, 0.92);
+  background: linear-gradient(180deg, rgba(248, 250, 252, 0.96), rgba(255, 255, 255, 0.98));
+}
+
+.usuarios-chip {
+  border-radius: 999px;
+  display: inline-flex;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 0.4rem 0.7rem;
+  text-transform: uppercase;
+}

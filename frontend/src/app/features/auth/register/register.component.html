@@ -36,6 +36,15 @@
       </p>
     </div>
 
+    <div class="auth-field wide">
+      <label for="register-role">Tipo de usuario <span>*</span></label>
+      <select id="register-role" formControlName="rol_id">
+        <option value="">Selecciona un rol</option>
+        <option *ngFor="let rol of roles" [value]="rol.id">{{ rol.nombre }}</option>
+      </select>
+      <p class="form-help">Primero elige si te registras como estudiante o docente para poder solicitar tu codigo institucional correcto.</p>
+    </div>
+
     <div class="auth-field code-field wide">
       <div class="code-field__header">
         <label for="register-code">Codigo institucional <span>*</span></label>
@@ -84,14 +93,6 @@
     <div class="auth-field">
       <label for="register-phone">Telefono</label>
       <input id="register-phone" type="text" formControlName="telefono" placeholder="Opcional" />
-    </div>
-
-    <div class="auth-field wide">
-      <label for="register-role">Tipo de usuario <span>*</span></label>
-      <select id="register-role" formControlName="rol_id">
-        <option value="">Selecciona un rol</option>
-        <option *ngFor="let rol of roles" [value]="rol.id">{{ rol.nombre }}</option>
-      </select>
     </div>
 
     <button class="auth-submit wide" [disabled]="form.invalid || loading">

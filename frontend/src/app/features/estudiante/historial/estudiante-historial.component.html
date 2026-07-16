@@ -1,0 +1,49 @@
+<section class="estudiante-historial space-y-4">
+  <div class="card-surface estudiante-hero p-4 lg:p-5">
+    <div class="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+      <div>
+        <p class="text-[10px] font-semibold uppercase tracking-[0.35em] text-blue-600">Estudiante</p>
+        <h3 class="mt-2 text-xl font-bold text-slate-900">Mi historial</h3>
+        <p class="mt-2 text-sm text-slate-600">Consulta el seguimiento de tus reservas con un panel pensado solo para ti.</p>
+      </div>
+
+      <div class="flex flex-wrap gap-2">
+        <a class="btn-secondary inline-flex items-center gap-2" routerLink="/estudiante/reservas">
+          <svg lucideCalendarRange class="h-4 w-4"></svg>
+          <span>Mis reservas</span>
+        </a>
+        <a class="btn-secondary inline-flex items-center gap-2" routerLink="/estudiante/disponibilidad">
+          <svg lucideClock3 class="h-4 w-4"></svg>
+          <span>Disponibilidad</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
+    <div class="card-surface estudiante-summary p-4 lg:p-5">
+      <p class="text-[10px] font-semibold uppercase tracking-[0.35em] text-blue-600">Resumen</p>
+      <h4 class="mt-2 text-lg font-bold text-slate-900">Lectura rapida del historial</h4>
+      <p class="mt-3 text-sm leading-6 text-slate-600">
+        Aqui ves tus acciones, cambios de estado y seguimiento personal sin mezclarlo con la vista administrativa.
+      </p>
+      <div class="mt-4 rounded-2xl border border-blue-100 bg-blue-50 px-4 py-3 text-sm text-slate-700">
+        Rol activo: {{ role }}
+      </div>
+    </div>
+
+    <div class="card-surface estudiante-guide p-4 lg:p-5">
+      <p class="text-[10px] font-semibold uppercase tracking-[0.35em] text-blue-600">Estados</p>
+      <h4 class="mt-2 text-lg font-bold text-slate-900">Referencias visuales</h4>
+      <div class="mt-4 flex flex-wrap gap-2">
+        <span class="estudiante-history-chip estudiante-history-chip--pending">Creacion</span>
+        <span class="estudiante-history-chip estudiante-history-chip--approved">Aprobada</span>
+        <span class="estudiante-history-chip estudiante-history-chip--rejected">Rechazada</span>
+        <span class="estudiante-history-chip estudiante-history-chip--cancelled">Cancelada</span>
+      </div>
+      <p class="mt-4 text-sm leading-6 text-slate-600">El objetivo es que identifiques rapido cada estado sin depender de colores confusos.</p>
+    </div>
+  </div>
+
+  <app-historial-list></app-historial-list>
+</section>

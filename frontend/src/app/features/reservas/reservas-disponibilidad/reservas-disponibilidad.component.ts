@@ -40,7 +40,9 @@ export class ReservasDisponibilidadComponent implements OnInit {
   }
 
   get backPath(): string {
-    return this.role === 'ADMINISTRADOR' ? '/reservas' : '/mis-reservas';
+    if (this.role === 'ADMINISTRADOR') return '/reservas';
+    if (this.role === 'DOCENTE') return '/docente/reservas';
+    return '/estudiante/reservas';
   }
 
   consultar(): void {

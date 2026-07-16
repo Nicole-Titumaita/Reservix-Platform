@@ -1,4 +1,4 @@
-# Seguridad del Backend
+﻿# Seguridad del Backend
 
 Proyecto: `Sistema Academico de Reservas de Espacios y Recursos Tecnologicos`
 
@@ -67,6 +67,8 @@ Antes de produccion:
 
 ## Matriz de rutas
 
+Inventario consolidado por rol: `backend/RUTAS_POR_ROL.md`
+
 ### Publicas
 
 - `GET /api/health`
@@ -128,10 +130,28 @@ La consulta de seguimiento acepta filtros por rol, por accion y por recurso en l
 - `PATCH /api/reservas/:id/cancelar`
 - `GET /api/historial/reserva/:reservaId`
 
-### Docente y estudiante
+### Estudiante
+
+- `GET /estudiante/dashboard`
+- `GET /estudiante/reservas`
+- `GET /estudiante/reservas/nueva`
+- `GET /estudiante/reservas/editar/:id`
+- `GET /estudiante/historial`
+- `GET /estudiante/disponibilidad`
+
+Rutas legacy de compatibilidad:
 
 - `GET /api/reservas/mis-reservas`
 - `GET /api/historial/mi-historial`
+
+### Solo docente
+
+- `GET /api/docente/dashboard`
+- `GET /api/docente/reservas`
+- `GET /api/docente/historial`
+- `GET /api/docente/disponibilidad`
+
+El panel de docente esta separado del panel administrativo y muestra un resumen propio con reservas proximas, historial reciente y accesos rapidos a reserva, disponibilidad e historial personal.
 
 ## Notas de seguridad pendientes
 
@@ -466,6 +486,16 @@ Errores frecuentes:
 SOURCE backend/database/migrations/002_create_two_factor_codes.sql;
 ```
 
+### Migracion para codigos institucionales
+
+Si la base de datos actual no tiene las tablas del modulo de codigo institucional, aplica tambien:
+
+```sql
+SOURCE backend/database/migrations/009_fix_institutional_codes_tables.sql;
+```
+
+Como respaldo, el backend intenta crear automaticamente `institutional_code_sequences` e `institutional_codes` al arrancar.
+
 ### Pruebas realizadas y resultados
 
 | Prueba | Resultado | Observacion |
@@ -729,3 +759,4 @@ La suite cubre:
 Cobertura observada en la fase 3:
 
 - Backend: 45.39% statements, 31.02% branches, 29.33% functions, 45.54% lines
+

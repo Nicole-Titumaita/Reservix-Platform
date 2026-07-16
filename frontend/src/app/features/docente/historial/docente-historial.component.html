@@ -1,0 +1,76 @@
+<section class="docente-historial space-y-4">
+  <div class="card-surface docente-hero p-4 lg:p-5">
+    <div class="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+      <div>
+        <p class="text-[10px] font-semibold uppercase tracking-[0.35em] text-blue-600">Docente</p>
+        <h3 class="mt-2 text-xl font-bold text-slate-900">Mi historial</h3>
+        <p class="mt-2 text-sm text-slate-600">
+          Consulta los cambios de estado de tus reservas en un espacio dedicado solo para ti.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap gap-2">
+        <a class="btn-secondary inline-flex items-center gap-2" routerLink="/docente/reservas">
+          <svg lucideCalendarRange class="h-4 w-4"></svg>
+          <span>Mis reservas</span>
+        </a>
+        <a class="btn-secondary inline-flex items-center gap-2" routerLink="/docente/disponibilidad">
+          <svg lucideClock3 class="h-4 w-4"></svg>
+          <span>Disponibilidad</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-surface docente-summary p-4 lg:p-5">
+    <div class="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+      <div>
+        <p class="text-[10px] font-semibold uppercase tracking-[0.35em] text-blue-600">Resumen visual</p>
+        <h4 class="mt-2 text-lg font-bold text-slate-900">Estados que veras aqui</h4>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <span class="docente-history-chip docente-history-chip--pending">Creacion</span>
+        <span class="docente-history-chip docente-history-chip--approved">Aprobada</span>
+        <span class="docente-history-chip docente-history-chip--rejected">Rechazada</span>
+        <span class="docente-history-chip docente-history-chip--cancelled">Cancelada</span>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="card-surface p-4 text-sm text-slate-500">
+    Cargando historial...
+  </div>
+
+  <div *ngIf="!loading && historial.length" class="card-surface p-4 lg:p-5">
+    <div class="overflow-x-auto rounded-2xl border border-slate-200 bg-white">
+      <table class="min-w-full divide-y divide-slate-200 text-sm">
+        <thead class="bg-slate-50 text-left text-xs uppercase tracking-[0.2em] text-slate-500">
+          <tr>
+            <th class="px-4 py-3 font-semibold">Accion</th>
+            <th class="px-4 py-3 font-semibold">Espacio</th>
+            <th class="px-4 py-3 font-semibold">Estado nuevo</th>
+            <th class="px-4 py-3 font-semibold">Fecha</th>
+            <th class="px-4 py-3 font-semibold">Observacion</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100 bg-white">
+          <tr *ngFor="let item of historial">
+            <td class="px-4 py-3 font-medium text-slate-900">
+              <span class="docente-history-chip" [ngClass]="'docente-history-chip--' + item.accion?.toLowerCase()">
+                {{ item.accion }}
+              </span>
+            </td>
+            <td class="px-4 py-3 text-slate-700">{{ item.espacio_nombre || '-' }}</td>
+            <td class="px-4 py-3 text-slate-700">{{ item.estado_nuevo_nombre || '-' }}</td>
+            <td class="px-4 py-3 text-slate-500">{{ item.fecha_accion }}</td>
+            <td class="px-4 py-3 text-slate-600">{{ item.observacion || '-' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && historial.length === 0" class="card-surface docente-empty-state p-4 text-sm text-slate-500">
+    Aun no tienes movimientos en tu historial.
+  </div>
+</section>

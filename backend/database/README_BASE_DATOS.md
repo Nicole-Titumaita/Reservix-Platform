@@ -7,6 +7,12 @@ Base actual: `sistema_reservas_academico`
 - `roles`
 - `estados`
 - `usuarios`
+- `two_factor_codes`
+- `login_attempts`
+- `auditoria`
+- `password_resets`
+- `institutional_code_sequences`
+- `institutional_codes`
 - `horarios`
 - `espacios`
 - `recursos`
@@ -24,6 +30,11 @@ Base actual: `sistema_reservas_academico`
 - Horarios base.
 - Reservas con usuario, espacio, horario, estado, fechas, motivo y observaciones.
 - Recursos asociados a una reserva mediante `reserva_recursos`.
+- Codigos institucionales por rol para registro y validacion segura.
+- Codigos OTP de doble factor mediante `two_factor_codes`.
+- Registro de intentos de acceso con `login_attempts`.
+- Auditoria general mediante `auditoria`.
+- Recuperacion segura de contrasena mediante `password_resets`.
 - Seguimiento de recursos mediante `historial_recursos` para registrar asignaciones, entregas, devoluciones y cambios de estado.
 - Historial de movimientos de reserva mediante `historial_reservas`.
 

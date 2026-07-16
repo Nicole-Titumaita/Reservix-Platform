@@ -1,36 +1,59 @@
-<section class="space-y-5">
-  <div class="flex items-center justify-between gap-4">
-    <div>
-      <p class="text-xs uppercase tracking-[0.35em] text-blue-400">Infraestructura</p>
-      <h3 class="text-2xl font-bold text-white">Espacios</h3>
+<section class="espacios-list-page space-y-5">
+  <div class="card-surface espacios-hero p-5 lg:p-6">
+    <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+      <div class="space-y-2">
+        <p class="text-[10px] font-semibold uppercase tracking-[0.35em] text-blue-600">Infraestructura</p>
+        <h3 class="text-2xl font-bold text-slate-900">Espacios</h3>
+        <p class="max-w-2xl text-sm leading-6 text-slate-600">Administra aulas, laboratorios y salas con una vista limpia, ordenada y lista para crecer.</p>
+      </div>
+      <a class="btn-primary inline-flex items-center gap-2 self-start" routerLink="/espacios/nuevo">Nuevo espacio</a>
     </div>
-    <a class="btn-primary" routerLink="/espacios/nuevo">Nuevo espacio</a>
+
+    <div class="mt-5 grid gap-3 md:grid-cols-3">
+      <div class="espacios-tip-card">
+        <span class="espacios-tip-label">Vista clara</span>
+        <p>Los espacios se muestran con los datos clave para editar sin perder tiempo.</p>
+      </div>
+      <div class="espacios-tip-card">
+        <span class="espacios-tip-label">Capacidad</span>
+        <p>Revisa rápidamente aforo, tipo de espacio y estado activo.</p>
+      </div>
+      <div class="espacios-tip-card">
+        <span class="espacios-tip-label">Acciones</span>
+        <p>Editar y eliminar quedan alineados para evitar desorden visual.</p>
+      </div>
+    </div>
   </div>
-  <div class="card-surface overflow-hidden">
-    <table class="min-w-full divide-y divide-slate-200 text-sm">
-      <thead class="bg-slate-50 text-left text-slate-500">
-        <tr>
-          <th class="px-4 py-3">Codigo</th>
-          <th class="px-4 py-3">Nombre</th>
-          <th class="px-4 py-3">Tipo</th>
-          <th class="px-4 py-3">Capacidad</th>
-          <th class="px-4 py-3">Estado</th>
-          <th class="px-4 py-3">Acciones</th>
-        </tr>
-      </thead>
-      <tbody class="divide-y divide-slate-100 bg-white">
-        <tr *ngFor="let item of items">
-          <td class="px-4 py-3">{{ item.codigo }}</td>
-          <td class="px-4 py-3 font-medium">{{ item.nombre }}</td>
-          <td class="px-4 py-3">{{ item.tipo }}</td>
-          <td class="px-4 py-3">{{ item.capacidad || 0 }}</td>
-          <td class="px-4 py-3">{{ item.estado_nombre || item.estado_id }}</td>
-          <td class="px-4 py-3">
-            <button class="btn-secondary mr-2" (click)="edit(item.id)">Editar</button>
-            <button class="btn-secondary" (click)="remove(item.id)">Eliminar</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+
+  <div class="card-surface espacios-table overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-slate-200 text-sm">
+        <thead class="bg-slate-50 text-left text-xs uppercase tracking-[0.2em] text-slate-500">
+          <tr>
+            <th class="px-4 py-3 font-semibold">Código</th>
+            <th class="px-4 py-3 font-semibold">Nombre</th>
+            <th class="px-4 py-3 font-semibold">Tipo</th>
+            <th class="px-4 py-3 font-semibold">Capacidad</th>
+            <th class="px-4 py-3 font-semibold">Estado</th>
+            <th class="px-4 py-3 font-semibold">Acciones</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100 bg-white">
+          <tr *ngFor="let item of items" class="align-middle">
+            <td class="px-4 py-3 text-slate-600">{{ item.codigo }}</td>
+            <td class="px-4 py-3 font-medium text-slate-900">{{ item.nombre }}</td>
+            <td class="px-4 py-3 text-slate-600">{{ item.tipo }}</td>
+            <td class="px-4 py-3 text-slate-600">{{ item.capacidad || 0 }}</td>
+            <td class="px-4 py-3 text-slate-600">{{ item.estado_nombre || item.estado_id }}</td>
+            <td class="px-4 py-3">
+              <div class="flex flex-wrap gap-2">
+                <button class="btn-secondary inline-flex items-center gap-2 px-3 py-2 text-sm" (click)="edit(item.id)">Editar</button>
+                <button class="btn-secondary inline-flex items-center gap-2 px-3 py-2 text-sm" (click)="remove(item.id)">Eliminar</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </section>

@@ -26,6 +26,14 @@ import { ReservasFormComponent } from './features/reservas/reservas-form/reserva
 import { ReservasDisponibilidadComponent } from './features/reservas/reservas-disponibilidad/reservas-disponibilidad.component';
 import { HistorialListComponent } from './features/historial/historial-list/historial-list.component';
 import { EstadosFormComponent } from './features/estados/estados-form/estados-form.component';
+import { DocenteDashboardComponent } from './features/docente/dashboard/docente-dashboard.component';
+import { DocenteReservasComponent } from './features/docente/reservas/docente-reservas.component';
+import { DocenteHistorialComponent } from './features/docente/historial/docente-historial.component';
+import { DocenteDisponibilidadComponent } from './features/docente/disponibilidad/docente-disponibilidad.component';
+import { EstudianteDashboardComponent } from './features/estudiante/dashboard/estudiante-dashboard.component';
+import { EstudianteReservasComponent } from './features/estudiante/reservas/estudiante-reservas.component';
+import { EstudianteHistorialComponent } from './features/estudiante/historial/estudiante-historial.component';
+import { EstudianteDisponibilidadComponent } from './features/estudiante/disponibilidad/estudiante-disponibilidad.component';
 
 export const appRoutes: Routes = [
   {
@@ -45,7 +53,21 @@ export const appRoutes: Routes = [
     component: MainLayoutComponent,
     canActivate: [authGuard],
     children: [
-      { path: 'dashboard', component: DashboardComponent },
+      { path: 'dashboard', component: DashboardComponent, canActivate: [roleGuard], data: { roles: ['ADMINISTRADOR'] } },
+      { path: 'docente', pathMatch: 'full', redirectTo: 'docente/dashboard' },
+      { path: 'docente/dashboard', component: DocenteDashboardComponent, canActivate: [roleGuard], data: { roles: ['DOCENTE'] } },
+      { path: 'docente/reservas', component: DocenteReservasComponent, canActivate: [roleGuard], data: { roles: ['DOCENTE'] } },
+      { path: 'docente/reservas/nueva', component: ReservasFormComponent, canActivate: [roleGuard], data: { roles: ['DOCENTE'] } },
+      { path: 'docente/reservas/editar/:id', component: ReservasFormComponent, canActivate: [roleGuard], data: { roles: ['DOCENTE'] } },
+      { path: 'docente/historial', component: DocenteHistorialComponent, canActivate: [roleGuard], data: { roles: ['DOCENTE'] } },
+      { path: 'docente/disponibilidad', component: DocenteDisponibilidadComponent, canActivate: [roleGuard], data: { roles: ['DOCENTE'] } },
+      { path: 'estudiante', pathMatch: 'full', redirectTo: 'estudiante/dashboard' },
+      { path: 'estudiante/dashboard', component: EstudianteDashboardComponent, canActivate: [roleGuard], data: { roles: ['ESTUDIANTE'] } },
+      { path: 'estudiante/reservas', component: EstudianteReservasComponent, canActivate: [roleGuard], data: { roles: ['ESTUDIANTE'] } },
+      { path: 'estudiante/reservas/nueva', component: ReservasFormComponent, canActivate: [roleGuard], data: { roles: ['ESTUDIANTE'] } },
+      { path: 'estudiante/reservas/editar/:id', component: ReservasFormComponent, canActivate: [roleGuard], data: { roles: ['ESTUDIANTE'] } },
+      { path: 'estudiante/historial', component: EstudianteHistorialComponent, canActivate: [roleGuard], data: { roles: ['ESTUDIANTE'] } },
+      { path: 'estudiante/disponibilidad', component: EstudianteDisponibilidadComponent, canActivate: [roleGuard], data: { roles: ['ESTUDIANTE'] } },
       { path: 'usuarios', component: UsuariosListComponent, canActivate: [roleGuard], data: { roles: ['ADMINISTRADOR'] } },
       { path: 'usuarios/nuevo', component: UsuariosFormComponent, canActivate: [roleGuard], data: { roles: ['ADMINISTRADOR'] } },
       { path: 'usuarios/editar/:id', component: UsuariosFormComponent, canActivate: [roleGuard], data: { roles: ['ADMINISTRADOR'] } },
@@ -68,12 +90,13 @@ export const appRoutes: Routes = [
       { path: 'reservas', component: ReservasListComponent, canActivate: [roleGuard], data: { roles: ['ADMINISTRADOR'] } },
       { path: 'reservas/nueva', component: ReservasFormComponent, canActivate: [roleGuard], data: { roles: ['ADMINISTRADOR'] } },
       { path: 'reservas/editar/:id', component: ReservasFormComponent, canActivate: [roleGuard], data: { roles: ['ADMINISTRADOR'] } },
-      { path: 'reservas/disponibilidad', component: ReservasDisponibilidadComponent },
-      { path: 'mis-reservas', component: ReservasListComponent, canActivate: [roleGuard], data: { roles: ['DOCENTE', 'ESTUDIANTE'] } },
-      { path: 'mis-reservas/nueva', component: ReservasFormComponent, canActivate: [roleGuard], data: { roles: ['DOCENTE', 'ESTUDIANTE'] } },
-      { path: 'mis-reservas/editar/:id', component: ReservasFormComponent, canActivate: [roleGuard], data: { roles: ['DOCENTE', 'ESTUDIANTE'] } },
-      { path: 'mi-historial', component: HistorialListComponent, canActivate: [roleGuard], data: { roles: ['DOCENTE', 'ESTUDIANTE'] } },
+      { path: 'reservas/disponibilidad', component: ReservasDisponibilidadComponent, canActivate: [roleGuard], data: { roles: ['ADMINISTRADOR', 'DOCENTE', 'ESTUDIANTE'] } },
+      { path: 'mis-reservas', pathMatch: 'full', redirectTo: 'estudiante/reservas' },
+      { path: 'mis-reservas/nueva', pathMatch: 'full', redirectTo: 'estudiante/reservas/nueva' },
+      { path: 'mis-reservas/editar/:id', pathMatch: 'full', redirectTo: 'estudiante/reservas/editar/:id' },
+      { path: 'mi-historial', pathMatch: 'full', redirectTo: 'estudiante/historial' },
       { path: 'historial', component: HistorialListComponent, canActivate: [roleGuard], data: { roles: ['ADMINISTRADOR'] } },
+      { path: 'reservas/disponibilidad', component: ReservasDisponibilidadComponent, canActivate: [roleGuard], data: { roles: ['ADMINISTRADOR', 'DOCENTE', 'ESTUDIANTE'] } },
       { path: '', pathMatch: 'full', redirectTo: 'dashboard' }
     ]
   },

@@ -166,6 +166,7 @@ CREATE TABLE IF NOT EXISTS institutional_codes (
   used_at DATETIME NULL,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
+  UNIQUE KEY uq_institutional_codes_display (code_display),
   KEY idx_institutional_codes_email (email),
   KEY idx_institutional_codes_rol (rol_id),
   KEY idx_institutional_codes_expiry (expires_at),
@@ -307,6 +308,7 @@ CREATE TABLE IF NOT EXISTS historial_reservas (
   PRIMARY KEY (id),
   KEY idx_historial_reserva (reserva_id),
   KEY idx_historial_usuario (usuario_id),
+  KEY idx_historial_usuario_fecha (usuario_id, fecha_accion),
   CONSTRAINT fk_historial_reservas
     FOREIGN KEY (reserva_id) REFERENCES reservas (id)
     ON UPDATE CASCADE

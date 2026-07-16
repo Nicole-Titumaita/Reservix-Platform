@@ -1,33 +1,49 @@
-<section class="space-y-5">
-  <div class="flex items-center justify-between gap-4">
-    <div>
-      <p class="text-xs uppercase tracking-[0.35em] text-blue-400">Administracion</p>
-      <h3 class="text-2xl font-bold text-white">Roles</h3>
+<section class="roles-list-page space-y-4">
+  <div class="card-surface roles-hero p-4 lg:p-5">
+    <div class="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+      <div>
+        <p class="text-[10px] font-semibold uppercase tracking-[0.35em] text-blue-600">Administracion</p>
+        <h3 class="mt-2 text-xl font-bold text-slate-900">Roles</h3>
+        <p class="mt-2 max-w-2xl text-sm text-slate-600">Define permisos y mantén una estructura clara para admin, docente y estudiante.</p>
+      </div>
+      <a class="btn-primary inline-flex items-center gap-2" routerLink="/roles/nuevo">Nuevo rol</a>
     </div>
-    <a class="btn-primary" routerLink="/roles/nuevo">Nuevo rol</a>
   </div>
 
-  <div class="card-surface overflow-hidden">
-    <table class="min-w-full divide-y divide-slate-200 text-sm">
-      <thead class="bg-slate-50 text-left text-slate-500">
-        <tr>
-          <th class="px-4 py-3">ID</th>
-          <th class="px-4 py-3">Nombre</th>
-          <th class="px-4 py-3">Descripcion</th>
-          <th class="px-4 py-3">Acciones</th>
-        </tr>
-      </thead>
-      <tbody class="divide-y divide-slate-100 bg-white">
-        <tr *ngFor="let rol of roles">
-          <td class="px-4 py-3">{{ rol.id }}</td>
-          <td class="px-4 py-3 font-medium">{{ rol.nombre }}</td>
-          <td class="px-4 py-3 text-slate-600">{{ rol.descripcion || '-' }}</td>
-          <td class="px-4 py-3">
-            <button class="btn-secondary mr-2" (click)="edit(rol.id)">Editar</button>
-            <button class="btn-secondary" (click)="remove(rol.id)">Eliminar</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="grid gap-3 lg:grid-cols-[1fr_0.85fr]">
+    <div class="card-surface roles-guide p-4 lg:p-5">
+      <p class="text-[10px] font-semibold uppercase tracking-[0.35em] text-blue-600">Guia rapida</p>
+      <h4 class="mt-2 text-lg font-bold text-slate-900">Buen uso</h4>
+      <div class="mt-4 grid gap-3 md:grid-cols-3">
+        <div class="roles-tip-card rounded-2xl p-3"><p class="text-xs font-semibold text-slate-900">1. Crear</p><p class="mt-1 text-xs leading-5 text-slate-600">Agrega el nombre del rol sin duplicarlo.</p></div>
+        <div class="roles-tip-card rounded-2xl p-3"><p class="text-xs font-semibold text-slate-900">2. Revisar</p><p class="mt-1 text-xs leading-5 text-slate-600">Verifica que no afecte permisos existentes.</p></div>
+        <div class="roles-tip-card rounded-2xl p-3"><p class="text-xs font-semibold text-slate-900">3. Mantener</p><p class="mt-1 text-xs leading-5 text-slate-600">Conserva coherencia entre BD y frontend.</p></div>
+      </div>
+    </div>
+    <div class="card-surface roles-legend p-4 lg:p-5">
+      <p class="text-[10px] font-semibold uppercase tracking-[0.35em] text-blue-600">Regla</p>
+      <h4 class="mt-2 text-lg font-bold text-slate-900">Separacion por rol</h4>
+      <div class="mt-4 flex flex-wrap gap-2">
+        <span class="roles-chip">Administrador</span>
+        <span class="roles-chip">Docente</span>
+        <span class="roles-chip">Estudiante</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-surface roles-table overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-slate-200 text-sm">
+        <thead class="bg-slate-50 text-left text-slate-500">
+          <tr><th class="px-4 py-3">ID</th><th class="px-4 py-3">Nombre</th><th class="px-4 py-3">Descripcion</th><th class="px-4 py-3">Acciones</th></tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100 bg-white">
+          <tr *ngFor="let rol of roles">
+            <td class="px-4 py-3">{{ rol.id }}</td><td class="px-4 py-3 font-medium">{{ rol.nombre }}</td><td class="px-4 py-3 text-slate-600">{{ rol.descripcion || '-' }}</td>
+            <td class="px-4 py-3"><div class="flex flex-wrap gap-2"><button class="btn-secondary" (click)="edit(rol.id)">Editar</button><button class="btn-secondary" (click)="remove(rol.id)">Eliminar</button></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </section>

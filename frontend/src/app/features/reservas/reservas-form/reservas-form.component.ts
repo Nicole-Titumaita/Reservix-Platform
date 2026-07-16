@@ -55,6 +55,7 @@ export class ReservasFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.form.patchValue({ fecha_reserva: new Date().toISOString().slice(0, 10) });
+    this.configureRoleControls();
 
     if (this.isAdmin) {
       this.usuariosService.getAll().subscribe((response) => (this.usuarios = response.data ?? []));
@@ -134,7 +135,7 @@ export class ReservasFormComponent implements OnInit {
     request$.subscribe({
       next: () => {
         this.loading = false;
-        this.router.navigate([this.isAdmin ? '/reservas' : '/mis-reservas']);
+        this.router.navigate([this.returnPath]);
       },
       error: (error) => {
         this.loading = false;
@@ -145,6 +146,21 @@ export class ReservasFormComponent implements OnInit {
 
   get isAdmin(): boolean {
     return this.role === 'ADMINISTRADOR';
+  }
+
+  get returnPath(): string {
+    if (this.role === 'ADMINISTRADOR') return '/reservas';
+    if (this.role === 'DOCENTE') return '/docente/reservas';
+    return '/estudiante/reservas';
+  }
+
+  get currentUser(): { id: number; nombre?: string; apellido?: string; rol?: string } | null {
+    return this.getCurrentUser();
+  }
+
+  get currentUserLabel(): string {
+    if (!this.currentUser) return 'Usuario autenticado';
+    return [this.currentUser.nombre, this.currentUser.apellido].filter(Boolean).join(' ') || 'Usuario autenticado';
   }
 
   private patchReserva(reserva?: Reserva): void {
@@ -158,17 +174,31 @@ export class ReservasFormComponent implements OnInit {
   }
 
   private setDefaultsForNormalUser(): void {
-    if (this.isAdmin || this.isEditMode) return;
+    if (this.isAdmin) return;
 
     const user = this.getCurrentUser();
     const pendiente = this.estados.find((estado) => estado.nombre === 'PENDIENTE');
-    this.form.patchValue({
-      usuario_id: user?.id ?? '',
-      estado_id: pendiente?.id ?? ''
-    });
+
+    if (!this.isEditMode) {
+      this.form.patchValue({
+        usuario_id: user?.id ?? '',
+        estado_id: pendiente?.id ?? ''
+      });
+    }
   }
 
-  private getCurrentUser(): { id: number } | null {
+  private configureRoleControls(): void {
+    if (this.isAdmin) {
+      this.form.get('usuario_id')?.enable({ emitEvent: false });
+      this.form.get('estado_id')?.enable({ emitEvent: false });
+      return;
+    }
+
+    this.form.get('usuario_id')?.disable({ emitEvent: false });
+    this.form.get('estado_id')?.disable({ emitEvent: false });
+  }
+
+  private getCurrentUser(): { id: number; nombre?: string; apellido?: string; rol?: string } | null {
     const raw = localStorage.getItem('user');
     if (!raw) return null;
 

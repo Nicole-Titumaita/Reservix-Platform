@@ -1,15 +1,30 @@
-<section class="crud-page card-surface">
+<section class="crud-page card-surface reservas-form-page">
   <div class="crud-header">
     <div>
       <p class="crud-eyebrow">Reservas</p>
       <h3 class="crud-title">{{ isEditMode ? 'Editar reserva' : (isAdmin ? 'Nueva reserva' : 'Nueva solicitud') }}</h3>
       <p class="crud-description">{{ isAdmin ? 'Asocia usuario, espacio, horario y rango de fechas para registrar una reserva.' : 'Selecciona espacio, horario y fechas para solicitar una reserva.' }}</p>
     </div>
-    <a class="btn-secondary" [routerLink]="isAdmin ? '/reservas' : '/mis-reservas'">Volver</a>
+    <a class="btn-secondary" [routerLink]="returnPath">Volver</a>
   </div>
 
-  <form class="form-grid" [formGroup]="form" (ngSubmit)="submit()">
-    <div class="form-field">
+  <div class="mt-5 grid gap-3 md:grid-cols-3">
+    <div class="booking-tip-card">
+      <span class="booking-tip-label">Paso 1</span>
+      <p>Completa los datos básicos de la solicitud con calma y revisa el espacio elegido.</p>
+    </div>
+    <div class="booking-tip-card">
+      <span class="booking-tip-label">Paso 2</span>
+      <p>Selecciona el horario correcto para evitar cruces o reservas duplicadas.</p>
+    </div>
+    <div class="booking-tip-card">
+      <span class="booking-tip-label">Paso 3</span>
+      <p>Guarda la reserva y revisa el estado desde el historial o panel administrativo.</p>
+    </div>
+  </div>
+
+  <form class="form-grid mt-6" [formGroup]="form" (ngSubmit)="submit()">
+    <div *ngIf="isAdmin; else normalUserSummary" class="form-field">
       <label class="form-label">Usuario <span class="form-required">*</span></label>
       <select class="form-control" formControlName="usuario_id">
         <option value="">Seleccione un usuario</option>
@@ -18,7 +33,17 @@
       <p class="form-help">Persona que solicita o recibe la reserva.</p>
     </div>
 
-    <div *ngIf="isAdmin" class="form-field">
+    <ng-template #normalUserSummary>
+      <div class="form-field form-field-full rounded-2xl border border-blue-100 bg-blue-50/70 p-4">
+        <label class="form-label">Usuario solicitante</label>
+        <p class="text-sm font-semibold text-slate-900">{{ currentUserLabel }}</p>
+        <p class="mt-1 text-sm text-slate-600">
+          La reserva quedara asociada automaticamente a tu cuenta y se registrara con estado pendiente.
+        </p>
+      </div>
+    </ng-template>
+
+    <div class="form-field">
       <label class="form-label">Espacio <span class="form-required">*</span></label>
       <select class="form-control" formControlName="espacio_id">
         <option value="">Seleccione un espacio</option>
@@ -26,7 +51,7 @@
       </select>
     </div>
 
-    <div *ngIf="isAdmin" class="form-field">
+    <div class="form-field">
       <label class="form-label">Horario <span class="form-required">*</span></label>
       <select class="form-control" formControlName="horario_id">
         <option value="">Seleccione un horario</option>
@@ -34,13 +59,21 @@
       </select>
     </div>
 
-    <div class="form-field">
+    <div *ngIf="isAdmin; else normalUserState" class="form-field">
       <label class="form-label">Estado <span class="form-required">*</span></label>
       <select class="form-control" formControlName="estado_id">
         <option value="">Seleccione un estado</option>
         <option *ngFor="let estado of estados" [value]="estado.id">{{ estado.nombre }}</option>
       </select>
     </div>
+
+    <ng-template #normalUserState>
+      <div class="form-field">
+        <label class="form-label">Estado</label>
+        <input class="form-control" type="text" value="PENDIENTE" readonly />
+        <p class="form-help">Las solicitudes de docente y estudiante se registran primero como pendientes.</p>
+      </div>
+    </ng-template>
 
     <div class="form-field">
       <label class="form-label">Fecha de solicitud <span class="form-required">*</span></label>
@@ -68,7 +101,7 @@
     </div>
 
     <div class="form-actions form-field-full">
-      <a class="btn-secondary" [routerLink]="isAdmin ? '/reservas' : '/mis-reservas'">Cancelar</a>
+      <a class="btn-secondary" [routerLink]="returnPath">Cancelar</a>
       <button class="btn-primary" [disabled]="form.invalid || loading">{{ loading ? 'Guardando...' : (isEditMode ? 'Guardar cambios' : (isAdmin ? 'Guardar reserva' : 'Enviar solicitud')) }}</button>
     </div>
   </form>

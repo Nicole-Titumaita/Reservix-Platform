@@ -171,6 +171,46 @@ export interface Reserva {
   estado_nombre?: string;
 }
 
+export interface DocenteDashboardSummary {
+  total_reservas: number;
+  pendientes: number;
+  aprobadas: number;
+  rechazadas: number;
+  canceladas: number;
+  proximas: number;
+}
+
+export interface DocenteDashboardReserva {
+  id: number;
+  espacio_nombre?: string;
+  horario_nombre?: string;
+  estado_nombre?: string;
+  fecha_inicio: string;
+  fecha_fin: string;
+  motivo: string;
+  observaciones?: string | null;
+}
+
+export interface DocenteDashboardHistorial {
+  id: number;
+  reserva_id: number;
+  accion: string;
+  observacion?: string | null;
+  fecha_accion: string;
+  espacio_nombre?: string;
+  estado_anterior_nombre?: string | null;
+  estado_nuevo_nombre?: string;
+  reserva_motivo?: string;
+  fecha_inicio?: string;
+  fecha_fin?: string;
+}
+
+export interface DocenteDashboardData {
+  resumen: DocenteDashboardSummary;
+  proximas_reservas: DocenteDashboardReserva[];
+  historial_reciente: DocenteDashboardHistorial[];
+}
+
 export interface DisponibilidadReserva {
   disponible: boolean;
   mensaje: string;

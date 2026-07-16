@@ -1,0 +1,25 @@
+.estudiante-page {
+  .estudiante-hero,
+  .estudiante-panel,
+  .estudiante-stat-card {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.96));
+    border: 1px solid rgba(148, 163, 184, 0.16);
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.08);
+  }
+
+  .estudiante-link {
+    border: 1px solid rgba(148, 163, 184, 0.16);
+    background: rgba(255, 255, 255, 0.82);
+  }
+
+  .estudiante-link:hover {
+    border-color: rgba(37, 99, 235, 0.25);
+    transform: translateY(-1px);
+    box-shadow: 0 14px 24px rgba(37, 99, 235, 0.08);
+  }
+
+  .estudiante-tip {
+    border: 1px solid rgba(148, 163, 184, 0.14);
+    background: rgba(248, 250, 252, 0.9);
+  }
+}

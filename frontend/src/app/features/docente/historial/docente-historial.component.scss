@@ -1,0 +1,57 @@
+.docente-historial {
+  font-size: 0.875rem;
+}
+
+.docente-historial .card-surface {
+  min-height: auto;
+}
+
+.docente-hero {
+  background:
+    radial-gradient(circle at top right, rgba(59, 130, 246, 0.12), transparent 30%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.94));
+}
+
+.docente-summary {
+  border-color: rgba(191, 219, 254, 0.78);
+}
+
+.docente-history-chip {
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  display: inline-flex;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 0.38rem 0.7rem;
+  text-transform: uppercase;
+}
+
+.docente-history-chip--creacion {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+  color: #1d4ed8;
+}
+
+.docente-history-chip--aprobada {
+  background: #ecfdf5;
+  border-color: #6ee7b7;
+  color: #047857;
+}
+
+.docente-history-chip--rechazada {
+  background: #fff1f2;
+  border-color: #fda4af;
+  color: #be123c;
+}
+
+.docente-history-chip--cancelada {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  color: #475569;
+}
+
+.docente-empty-state {
+  border-color: rgba(226, 232, 240, 0.92);
+  background: linear-gradient(180deg, rgba(248, 250, 252, 0.96), rgba(255, 255, 255, 0.98));
+}

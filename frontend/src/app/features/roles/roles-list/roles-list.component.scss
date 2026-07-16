@@ -1,1 +1,8 @@
-/* Estilos locales del listado de roles */
+.roles-list-page { font-size: 0.875rem; }
+.roles-list-page .card-surface { min-height: auto; }
+.roles-hero {
+  background: radial-gradient(circle at top right, rgba(59,130,246,.12), transparent 30%), linear-gradient(180deg, rgba(255,255,255,.98), rgba(248,250,252,.94));
+}
+.roles-guide,.roles-legend,.roles-table { border-color: rgba(191,219,254,.78); }
+.roles-tip-card,.roles-chip { border: 1px solid rgba(226,232,240,.92); background: linear-gradient(180deg, rgba(248,250,252,.96), rgba(255,255,255,.98)); }
+.roles-chip { border-radius: 999px; display: inline-flex; font-size: .6875rem; font-weight: 800; letter-spacing: .08em; padding: .4rem .7rem; text-transform: uppercase; }

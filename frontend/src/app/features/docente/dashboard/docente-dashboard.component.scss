@@ -1,0 +1,124 @@
+.docente-page {
+  font-size: 0.875rem;
+}
+
+.docente-page .card-surface {
+  min-height: auto;
+}
+
+.docente-hero {
+  background:
+    radial-gradient(circle at top right, rgba(59, 130, 246, 0.16), transparent 34%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.92));
+  border-color: rgba(148, 163, 184, 0.24);
+}
+
+.docente-stat-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background: rgba(255, 255, 255, 0.96);
+  padding: 1rem;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.05);
+}
+
+.docente-stat-card::before {
+  content: '';
+  display: block;
+  height: 0.25rem;
+  width: 4.5rem;
+  border-radius: 999px;
+  margin-bottom: 0.85rem;
+  background: #cbd5e1;
+}
+
+.docente-stat-card--total::before {
+  background: linear-gradient(90deg, #1d4ed8, #60a5fa);
+}
+
+.docente-stat-card--pending::before {
+  background: linear-gradient(90deg, #f59e0b, #fbbf24);
+}
+
+.docente-stat-card--approved::before {
+  background: linear-gradient(90deg, #059669, #34d399);
+}
+
+.docente-stat-card--rejected::before {
+  background: linear-gradient(90deg, #e11d48, #fb7185);
+}
+
+.docente-stat-card--cancelled::before {
+  background: linear-gradient(90deg, #64748b, #94a3b8);
+}
+
+.docente-stat-card--upcoming::before {
+  background: linear-gradient(90deg, #2563eb, #818cf8);
+}
+
+.docente-feature-card {
+  border-color: rgba(148, 163, 184, 0.18);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(248, 250, 252, 0.92));
+}
+
+.docente-feature-card:hover {
+  border-color: rgba(59, 130, 246, 0.28);
+}
+
+.docente-panel {
+  border-color: rgba(148, 163, 184, 0.18);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(249, 250, 251, 0.95));
+}
+
+.docente-quicklink {
+  border: 1px solid rgba(191, 219, 254, 0.7);
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.docente-quicklink:hover {
+  border-color: rgba(96, 165, 250, 0.55);
+  background: rgba(239, 246, 255, 0.92);
+  transform: translateY(-1px);
+}
+
+.docente-example-block {
+  border: 1px solid rgba(191, 219, 254, 0.62);
+  background: linear-gradient(180deg, rgba(239, 246, 255, 0.78), rgba(255, 255, 255, 0.96));
+}
+
+.docente-example-card {
+  border: 1px solid rgba(191, 219, 254, 0.72);
+  background: rgba(255, 255, 255, 0.98);
+  min-height: 7.25rem;
+}
+
+.docente-role-chip {
+  border: 1px solid rgba(191, 219, 254, 0.82);
+  background: linear-gradient(135deg, rgba(239, 246, 255, 0.95), rgba(255, 255, 255, 0.98));
+}
+
+.docente-tip {
+  border: 1px dashed rgba(148, 163, 184, 0.4);
+  background: rgba(255, 255, 255, 0.88);
+}
+
+.docente-activity-item {
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  background: linear-gradient(180deg, rgba(248, 250, 252, 0.96), rgba(255, 255, 255, 0.98));
+}
+
+.docente-page h3,
+.docente-page h4,
+.docente-page p {
+  line-height: 1.4;
+}
+
+@media (max-width: 640px) {
+  .docente-page {
+    font-size: 0.8125rem;
+  }
+}

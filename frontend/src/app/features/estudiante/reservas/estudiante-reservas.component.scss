@@ -1,0 +1,24 @@
+.estudiante-reservas {
+  .estudiante-hero,
+  .estudiante-guide,
+  .estudiante-legend,
+  .estudiante-role-summary,
+  .estudiante-tip-card,
+  .estudiante-state {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.96));
+    border: 1px solid rgba(148, 163, 184, 0.16);
+    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.08);
+  }
+
+  .estudiante-state {
+    border-radius: 9999px;
+    padding: 0.45rem 0.85rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .estudiante-state--pending { color: #b45309; background: #fffbeb; border-color: #fde68a; }
+  .estudiante-state--approved { color: #047857; background: #ecfdf5; border-color: #a7f3d0; }
+  .estudiante-state--rejected { color: #be123c; background: #fff1f2; border-color: #fecdd3; }
+  .estudiante-state--cancelled { color: #475569; background: #f8fafc; border-color: #e2e8f0; }
+}

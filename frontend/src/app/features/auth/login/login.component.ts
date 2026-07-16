@@ -92,7 +92,8 @@ export class LoginComponent {
       next: (response) => {
         if (response.data) {
           this.auth.saveSession(response.data);
-          this.router.navigate(['/dashboard']);
+          const role = response.data.usuario?.rol_nombre || '';
+          this.router.navigate([this.auth.getLandingPathForRole(role)]);
         }
         this.loading = false;
       },

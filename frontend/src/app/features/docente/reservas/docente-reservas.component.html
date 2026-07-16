@@ -1,0 +1,112 @@
+<section class="docente-reservas space-y-4">
+  <div class="card-surface docente-hero p-4 lg:p-5">
+    <div class="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+      <div>
+        <p class="text-[10px] font-semibold uppercase tracking-[0.35em] text-blue-600">Docente</p>
+        <h3 class="mt-2 text-xl font-bold text-slate-900">Mis reservas</h3>
+        <p class="mt-2 text-sm text-slate-600">
+          Gestiona tus solicitudes academicas sin mezclarte con el panel administrativo.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap gap-2">
+        <a class="btn-secondary inline-flex items-center gap-2" routerLink="/docente/disponibilidad">
+          <svg lucideClock3 class="h-4 w-4"></svg>
+          <span>Disponibilidad</span>
+        </a>
+        <a class="btn-primary inline-flex items-center gap-2" routerLink="/docente/reservas/nueva">
+          <svg lucidePlus class="h-4 w-4"></svg>
+          <span>Nueva reserva</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid gap-3 lg:grid-cols-[1.1fr_0.9fr]">
+    <div class="card-surface docente-guide p-4 lg:p-5">
+      <p class="text-[10px] font-semibold uppercase tracking-[0.35em] text-blue-600">Guia rapida</p>
+      <h4 class="mt-2 text-lg font-bold text-slate-900">Antes de cancelar una reserva</h4>
+      <div class="mt-4 grid gap-3 md:grid-cols-3">
+        <div class="docente-tip-card rounded-2xl p-3">
+          <p class="text-xs font-semibold text-slate-900">1. Revisa el estado</p>
+          <p class="mt-1 text-xs leading-5 text-slate-600">Solo las reservas pendientes muestran el boton de cancelar.</p>
+        </div>
+        <div class="docente-tip-card rounded-2xl p-3">
+          <p class="text-xs font-semibold text-slate-900">2. Verifica horario</p>
+          <p class="mt-1 text-xs leading-5 text-slate-600">Comprueba el horario y el espacio para no perder el contexto.</p>
+        </div>
+        <div class="docente-tip-card rounded-2xl p-3">
+          <p class="text-xs font-semibold text-slate-900">3. Revisa historial</p>
+          <p class="mt-1 text-xs leading-5 text-slate-600">Si quieres confirmar cambios, abre el historial del docente.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-surface docente-legend p-4 lg:p-5">
+      <p class="text-[10px] font-semibold uppercase tracking-[0.35em] text-blue-600">Estados</p>
+      <h4 class="mt-2 text-lg font-bold text-slate-900">Leyenda visual</h4>
+      <div class="mt-4 flex flex-wrap gap-2">
+        <span class="docente-state docente-state--pending">Pendiente</span>
+        <span class="docente-state docente-state--approved">Aprobada</span>
+        <span class="docente-state docente-state--rejected">Rechazada</span>
+        <span class="docente-state docente-state--cancelled">Cancelada</span>
+      </div>
+      <p class="mt-4 text-sm leading-6 text-slate-600">
+        Las tarjetas usan colores distintos para que identifiques rapidamente qué solicitudes puedes cancelar y cuáles ya cerraron su ciclo.
+      </p>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="card-surface p-4 text-sm text-slate-500">
+    Cargando tus reservas...
+  </div>
+
+  <div *ngIf="!loading && reservas.length" class="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+    <article *ngFor="let reserva of reservas" class="card-surface docente-reserva-card flex h-full flex-col p-4">
+      <div class="flex items-start justify-between gap-3">
+        <div>
+          <p class="text-sm font-semibold text-slate-900">{{ reserva.espacio_nombre || '-' }}</p>
+          <p class="mt-1 text-xs text-slate-500">{{ reserva.horario_nombre || '-' }}</p>
+        </div>
+        <span
+          class="rounded-full px-3 py-1 text-[11px] font-semibold"
+          [class.bg-amber-50]="reserva.estado_nombre === 'PENDIENTE'"
+          [class.text-amber-700]="reserva.estado_nombre === 'PENDIENTE'"
+          [class.bg-emerald-50]="reserva.estado_nombre === 'APROBADA'"
+          [class.text-emerald-700]="reserva.estado_nombre === 'APROBADA'"
+          [class.bg-rose-50]="reserva.estado_nombre === 'RECHAZADA'"
+          [class.text-rose-700]="reserva.estado_nombre === 'RECHAZADA'"
+          [class.bg-slate-100]="reserva.estado_nombre === 'CANCELADA'"
+          [class.text-slate-700]="reserva.estado_nombre === 'CANCELADA'"
+        >
+          {{ reserva.estado_nombre || '-' }}
+        </span>
+      </div>
+
+      <div class="mt-3 grid gap-2 text-sm text-slate-600">
+        <p><span class="font-semibold text-slate-900">Motivo:</span> {{ reserva.motivo }}</p>
+        <p><span class="font-semibold text-slate-900">Inicio:</span> {{ reserva.fecha_inicio }}</p>
+        <p><span class="font-semibold text-slate-900">Fin:</span> {{ reserva.fecha_fin }}</p>
+      </div>
+
+      <div class="mt-auto flex flex-wrap gap-2 pt-4">
+        <button
+          *ngIf="reserva.estado_nombre === 'PENDIENTE'"
+          type="button"
+          class="btn-secondary"
+          (click)="cancelar(reserva.id)"
+        >
+          Cancelar
+        </button>
+        <a class="btn-secondary inline-flex items-center gap-2" [routerLink]="['/docente/historial']">
+          <svg lucideHistory class="h-4 w-4"></svg>
+          <span>Historial</span>
+        </a>
+      </div>
+    </article>
+  </div>
+
+  <div *ngIf="!loading && reservas.length === 0" class="card-surface docente-empty-state p-4 text-sm text-slate-500">
+    Aun no tienes reservas registradas.
+  </div>
+</section>

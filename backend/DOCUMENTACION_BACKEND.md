@@ -1,4 +1,4 @@
-# Documentacion del Backend
+﻿# Documentacion del Backend
 
 Proyecto: `Sistema Academico de Reservas de Espacios y Recursos Tecnologicos`
 
@@ -120,6 +120,8 @@ Rutas:
 - `backend/src/routes/horarios.routes.js`
 - `backend/src/routes/reservas.routes.js`
 - `backend/src/routes/historial.routes.js`
+- `backend/src/routes/docente.routes.js`
+- `backend/RUTAS_POR_ROL.md`
 
 ## 5. Endpoints disponibles
 
@@ -206,6 +208,33 @@ Reglas:
 - `PATCH /api/reservas/:id/rechazar`
 - `PATCH /api/reservas/:id/cancelar`
 
+### Docente
+
+- `GET /api/docente/dashboard`
+- `GET /api/docente/reservas`
+- `GET /api/docente/historial`
+- `GET /api/docente/disponibilidad`
+
+El modulo docente usa rutas propias para no mezclar su experiencia con el panel administrativo ni con los listados de estudiante.
+
+### Estudiante
+
+- `GET /estudiante/dashboard`
+- `GET /estudiante/reservas`
+- `GET /estudiante/reservas/nueva`
+- `GET /estudiante/reservas/editar/:id`
+- `GET /estudiante/historial`
+- `GET /estudiante/disponibilidad`
+
+Rutas legacy de compatibilidad:
+
+- `GET /mis-reservas`
+- `GET /mis-reservas/nueva`
+- `GET /mis-reservas/editar/:id`
+- `GET /mi-historial`
+
+Estas rutas antiguas redirigen al modulo propio de estudiante para mantener compatibilidad sin mezclar la experiencia con docente.
+
 ### Historial
 
 - `GET /api/historial`
@@ -225,6 +254,12 @@ Tablas:
 - `roles`
 - `usuarios`
 - `estados`
+- `two_factor_codes`
+- `login_attempts`
+- `auditoria`
+- `password_resets`
+- `institutional_code_sequences`
+- `institutional_codes`
 - `espacios`
 - `recursos`
 - `historial_recursos`
@@ -334,3 +369,4 @@ Verificacion:
 ## 11. Estado actual
 
 El backend ya tiene una base funcional para sostener el CRUD academico. El siguiente trabajo recomendado es fortalecer validaciones, filtros, paginacion y respuestas de error para que el frontend pueda mostrar mensajes mas intuitivos.
+

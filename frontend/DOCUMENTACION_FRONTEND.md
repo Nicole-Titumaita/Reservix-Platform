@@ -225,6 +225,11 @@ Rutas principales:
 - `/reservas/nueva`
 - `/reservas/editar/:id`
 - `/reservas/disponibilidad`
+- `/docente/dashboard`
+- `/docente/reservas`
+- `/docente/reservas/nueva`
+- `/docente/disponibilidad`
+- `/docente/historial`
 - `/mis-reservas`
 - `/mis-reservas/nueva`
 - `/mis-reservas/editar/:id`
@@ -247,6 +252,7 @@ El frontend ya tiene:
 - La vista de seguimiento permite filtrar por rol, por recurso y por accion para revisar la trazabilidad de cada usuario.
 - La vista tambien muestra un resumen por rol con el total de movimientos visibles.
 - Menu separado por rol: los usuarios no administradores no ven opciones exclusivas del admin.
+- Panel docente propio con resumen de reservas, proximas solicitudes, historial reciente y accesos rapidos a su flujo academico.
 - Reservas personales para docentes y estudiantes usando `GET /api/reservas/mis-reservas`.
 - Seguimiento personal usando `GET /api/historial/mi-historial`.
 - Apartado `Mi historial` para usuarios normales, ligado a la tabla `historial_reservas`.

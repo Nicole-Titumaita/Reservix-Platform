@@ -1,8 +1,10 @@
 import { ActivatedRouteSnapshot, CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
+import { AuthService } from '../services/auth.service';
 
 export const roleGuard: CanActivateFn = (route: ActivatedRouteSnapshot) => {
   const router = inject(Router);
+  const auth = inject(AuthService);
   const token = localStorage.getItem('token');
   const role = localStorage.getItem('role');
   if (!token) {
@@ -16,7 +18,7 @@ export const roleGuard: CanActivateFn = (route: ActivatedRouteSnapshot) => {
   }
 
   if (!role || !allowedRoles.includes(role)) {
-    router.navigate(['/dashboard']);
+    router.navigate([auth.getLandingPathForRole(role || '')]);
     return false;
   }
   return true;

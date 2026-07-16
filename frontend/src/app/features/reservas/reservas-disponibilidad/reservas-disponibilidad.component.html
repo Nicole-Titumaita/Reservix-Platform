@@ -1,4 +1,4 @@
-<section class="crud-page card-surface">
+<section class="crud-page card-surface disponibilidad-page">
   <div class="crud-header">
     <div>
       <p class="crud-eyebrow">Disponibilidad</p>
@@ -8,7 +8,22 @@
     <a class="btn-secondary" [routerLink]="backPath">Volver</a>
   </div>
 
-  <form class="form-grid" [formGroup]="form" (ngSubmit)="consultar()">
+  <div class="mt-5 grid gap-3 md:grid-cols-3">
+    <div class="booking-tip-card">
+      <span class="booking-tip-label">Entrada</span>
+      <p>Escoge el espacio y el rango horario que deseas revisar.</p>
+    </div>
+    <div class="booking-tip-card">
+      <span class="booking-tip-label">Validación</span>
+      <p>El sistema compara reservas activas y evita choques de horario.</p>
+    </div>
+    <div class="booking-tip-card">
+      <span class="booking-tip-label">Resultado</span>
+      <p>Verás un estado claro para decidir si continúas con la solicitud.</p>
+    </div>
+  </div>
+
+  <form class="form-grid mt-6" [formGroup]="form" (ngSubmit)="consultar()">
     <div class="form-field">
       <label class="form-label">Espacio <span class="form-required">*</span></label>
       <select class="form-control" formControlName="espacio_id">
@@ -41,7 +56,7 @@
 
   <div
     *ngIf="result"
-    class="mt-5 rounded-xl border p-5"
+    class="mt-5 rounded-2xl border p-5 shadow-sm"
     [class.border-emerald-200]="result.disponible"
     [class.bg-emerald-50]="result.disponible"
     [class.border-amber-200]="!result.disponible"
